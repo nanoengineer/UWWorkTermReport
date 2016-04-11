@@ -5,40 +5,37 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/11]
 \ProvidesPackage{titlepage}
 
-
-\newenvironment{bottompar}{\center\par\vspace*{\fill}}
-
 \newcommand{\maketitlepage}{
-    \newpage
-    \pagenumbering{gobble}
 
-    \begin{center}
-        \@university \\
-        Faculty of \@faculty \\
-        \@program \\
-    \end{center}
+\begin{titlepage}
 
-    \vspace{5cm}
+	\centering
 
-    \begin{center}
-        \@title
-    \end{center}
+	{\LARGE  \@university \par}
+	{\LARGE Faculty of \@faculty \par}
+	\vspace{0.2cm}
+	Department of \@program \par
 
-    \vspace{5cm}
+	\vfill
 
-    \begin{center}
-        \@employername \\
-        \@employeraddress
-    \end{center}
+	{\huge \@title \par}
 
-    \begin{bottompar}
-        Prepared By \@author \\
-        ID \@studentnumber \\
-        User ID \@studentid \\
-        \@previousterm \hspace{1pt} \@program \\
-        \today
-    \end{bottompar}
-    \clearpage
+	\vfill
+
+	{\Large \@employername \par}
+	\@employeraddress \par
+
+	\vfill
+
+	Prepared by \par
+	\@author \par
+	ID \@studentnumber \par
+	User ID \@studentid \par
+	\@previousterm \hspace{1pt} \@program \par
+	\today \par
+
+\end{titlepage}
+
 }
 
 \endinput
