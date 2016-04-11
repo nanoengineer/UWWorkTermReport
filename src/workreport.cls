@@ -9,6 +9,7 @@
 % --- Dependencies
 \RequirePackage{titlepage}
 \RequirePackage{letter_of_submittal}
+\RequirePackage{table_of_contents}
 
 
 % --- Page Layout

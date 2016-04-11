@@ -1,0 +1,14 @@
+% -- contributions.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{contributions}
+
+\newenvironment{contributions}{
+    \newpage
+    \pagenumbering{roman}
+    \section*{Contributions}
+}{
+    \pagenumbering{arabic}
+    \clearpage
+}
+
+\endinput
