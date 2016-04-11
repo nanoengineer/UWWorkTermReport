@@ -1,0 +1,24 @@
+%% table_of_contents.sty
+% --- Edits the default table of contents to fit with the requirements for the
+% work term report
+\ProvidesPackage{table_of_contents}
+
+\renewcommand{\contentsname}{Table of Contents}
+
+\newcommand{\toctree}{
+	\pagenumbering{roman}
+	\newpage
+	\tableofcontents
+	\clearpage
+	
+	\newpage
+	\listoffigures
+	\clearpage
+	
+	\newpage
+	\listoftables
+	\clearpage
+
+}
+
+\endinput
