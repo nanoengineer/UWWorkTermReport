@@ -8,6 +8,7 @@
 
 % --- Dependencies
 \RequirePackage{titlepage}
+\RequirePackage{letter_of_submittal}
 
 
 % --- Page Layout
@@ -31,37 +32,46 @@
 	\def\@author{#1}
 }
 
-\renewcommand{\university}[1]{
+\newcommand{\university}[1]{
     \def\@university{#1}
 }
 
-\renewcommand{\faculty}[1]{
+\newcommand{\universityaddress}[1]{
+    \def\@universityaddress{#1}
+}
+
+\newcommand{\faculty}[1]{
     \def\@faculty{#1}
 }
 
-\renewcommand{\program}[1]{
+\newcommand{\program}[1]{
     \def\@program{#1}
 }
 
-\renewcommand{\employername}[1]{
+\newcommand{\employername}[1]{
     \def\@employername{#1}
 }
 
-\renewcommand{\employeraddress}[1]{
+\newcommand{\employeraddress}[1]{
     \def\@employeraddress{#1}
 }
 
-\renewcommand{\studentnumber}[1]{
+\newcommand{\studentnumber}[1]{
     \def\@studentnumber{#1}
 }
 
-\renewcommand{\studentid}[1]{
+\newcommand{\studentid}[1]{
     \def\@studentid{#1}
 }
 
-\renewcommand{\previousterm}[1]{
+\newcommand{\previousterm}[1]{
     \def\@previousterm{#1}
 }
+
+\newcommand{\programdirector}[1]{
+    \def\@programdirector{#1}
+}
+
 
 % --- Line Spacing
 

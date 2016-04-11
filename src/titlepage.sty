@@ -6,9 +6,10 @@
 \ProvidesPackage{titlepage}
 
 
-\newenvironment{bottompar}{\center\par\vspace{\fill}}
+\newenvironment{bottompar}{\center\par\vspace*{\fill}}
 
 \newcommand{\maketitlepage}{
+    \newpage
     \pagenumbering{gobble}
 
     \begin{center}
@@ -31,12 +32,11 @@
     \end{center}
 
     \begin{bottompar}
-        Prepared By \\
-        \@author \\
+        Prepared By \@author \\
         ID \@studentnumber \\
         User ID \@studentid \\
-        \@previousterm \textvisiblespace \@program \\
-        \date{\today}
+        \@previousterm \hspace \@program \\
+        \today
     \end{bottompar}
     \clearpage
 }
