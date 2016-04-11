@@ -1,0 +1,25 @@
+% --- summary.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{summary}
+\RequirePackage{environ}
+
+\NewEnviron{summary}{
+    \newpage
+    \pagenumbering{roman}
+    \setcounter{page}{\thepagenumber}
+
+    \setstretch{1.5}
+    \setlength{\parindent}{0cm}
+    \setlength{\parskip}{0.5\baselineskip}
+
+    \addcontentsline{toc}{section}{Summary}
+
+    \begin{section}*{Summary}
+
+    \BODY
+
+    \end{section}
+    \clearpage
+
+    \setcounter{pagenumber}{\arabic{page}}
+}

@@ -1,0 +1,17 @@
+% -- body.sty
+
+\ProvidesPackage{body}
+
+\newenvironment{body}{
+    \newpage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \setstretch{1.5}
+
+    \setlength{\parindent}{0cm}
+    \setlength{\parskip}{0.5\baselineskip}
+
+}{
+    \clearpage
+    \setcounter{pagenumber}{\arabic{page}}
+}

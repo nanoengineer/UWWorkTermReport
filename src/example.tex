@@ -1,6 +1,7 @@
 \documentclass{workreport}
-
 \usepackage{lipsum}
+\usepackage{amsmath}
+
 \title{
 	Example Work Term Report Style
 }
@@ -45,4 +46,70 @@
 	\lipsum[3]
 \end{contributions}
 
+\begin{summary}
+	\lipsum[1-6]
+\end{summary}
+
+\listoffiguresandtables
+
+\begin{body}
+\section{Introduction}
+
+\lipsum[1-6]
+
+\section{Background}
+
+\lipsum[1-2]
+
+	\subsection{A Subsection}
+	
+	\lipsum[1]
+	
+	\subsection{A Second Subsection}
+	
+	\lipsum[2]
+	
+\section{Data}
+
+\lipsum[1-2]
+
+Here's a reference to table \ref{tbl:exampletable}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|} \hline
+		title & number & decimal \\ \hline
+		heading & 1 & 1.7 \\ \hline
+		another heading & 2 & 3.4 \\ \hline
+	\end{tabular}
+	\caption{A table demonstrating \LaTeX \, formatting}
+	\label{tbl:exampletable}
+\end{table}
+
+\section{Math}
+
+\lipsum[1]
+
+\subsection{The Bloch Equations}
+
+	\begin{align}
+		\frac{d\, M_x(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_x - \frac{M_x(t)}{T_2} \\
+		\frac{d\, M_y(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_y - \frac{M_y(t)}{T_2} \\
+		\frac{d\, M_z(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_z - \frac{M_z(t) - M_0}{T_1}
+	\end{align}
+	
+\subsection{The Schrodinger Equation}
+
+	\begin{equation}
+		i\hbar \frac{\partial \, \Psi}{\partial t} = \hat{H}\Psi
+	\end{equation}
+	
+\section{Conclusions}
+	\LaTeX \, is awesome.
+	
+\section{Recommendations}
+
+	Use more \LaTeX
+
+\end{body}
 \end{document}
