@@ -9,7 +9,8 @@ cp -R ./src ./build/uw_work_term_report
 echo "source copied"
 #
 echo "Packaging"
-tar -czvf ./build/uw_work_term_report.tar.gz ./build/uw_work_term_report;
+cd ./build
+tar -czvf ./uw_work_term_report.tar.gz ./uw_work_term_report;
 echo "Packaged"
 #
 echo "Cleaning Up"
