@@ -10,7 +10,7 @@
 \RequirePackage{titlepage}
 \RequirePackage{letter_of_submittal}
 \RequirePackage{table_of_contents}
-
+\RequirePackage{contributions}
 
 % --- Page Layout
 \RequirePackage[letterpaper, left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
