@@ -1,0 +1,44 @@
+% Title Page -----------------------------------------------------------------
+%
+% Author: Michal Kononenko
+%
+\NeedsTeXFormat{LaTeX2e}[1994/06/11]
+\ProvidesPackage{titlepage}
+
+
+\newenvironment{bottompar}{\center\par\vspace{\fill}}
+
+\newcommand{\maketitlepage}{
+    \pagenumbering{gobble}
+
+    \begin{center}
+        \@university \\
+        Faculty of \@faculty \\
+        \@program \\
+    \end{center}
+
+    \vspace{5cm}
+
+    \begin{center}
+        \@title
+    \end{center}
+
+    \vspace{5cm}
+
+    \begin{center}
+        \@employername \\
+        \@employeraddress
+    \end{center}
+
+    \begin{bottompar}
+        Prepared By \\
+        \@author \\
+        ID \@studentnumber \\
+        User ID \@studentid \\
+        \@previousterm \textvisiblespace \@program \\
+        \date{\today}
+    \end{bottompar}
+    \clearpage
+}
+
+\endinput
