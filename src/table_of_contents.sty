@@ -2,22 +2,63 @@
 % --- Edits the default table of contents to fit with the requirements for the
 % work term report
 \ProvidesPackage{table_of_contents}
+\RequirePackage{titletoc}
 
 \renewcommand{\contentsname}{Table of Contents}
 
 \newcommand{\toctree}{
-	\pagenumbering{roman}
-	\newpage
+
+    \pagenumbering{gobble}
+
+    \setcounter{page}{\thepagenumber}
+
+    \titlecontents{section}
+    [0pt] % left margin
+    {\vspace{2pt}} % above code
+    {
+   		\thecontentslabel\enspace
+    } % numbered entry format
+    {\hspace{4pt}\contentsmargin{0pt}} % un-numbered entry format
+    {\titlerule*[.5pc]{.}\contentspage} % separator
+    [] % below code
+
+    \titlecontents{subsection}
+    [10pt]
+    {}
+    {
+    	\contentsmargin{10pt}
+    	\thecontentslabel\enspace
+   	} % numbered entry format
+   	{\contentsmargin{0pt}} % un-numbered entry format
+   	{\titlerule*[.5pc]{.}\contentspage} % separator
+   	[] % below code
+
+
+    \newpage
 	\tableofcontents
 	\clearpage
-	
+
+    \setcounter{pagenumber}{\arabic{page}}
+}
+
+\newcommand{\listoffiguresandtables}{
+	\pagenumbering{roman}
+    \setcounter{page}{\thepagenumber}
+
+    \addcontentsline{toc}{section}{List of Figures}
+
 	\newpage
 	\listoffigures
 	\clearpage
-	
+
 	\newpage
+
+    \addcontentsline{toc}{section}{List of Tables}
+
 	\listoftables
 	\clearpage
+
+    \setcounter{pagenumber}{\arabic{page}}
 
 }
 

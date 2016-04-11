@@ -9,18 +9,19 @@
 
 % Defines an environment
 \newenvironment{letter_of_submittal}[2]{
-	
+
 	\def\@lettersignature{#2}
 	\setlength{\parindent}{0cm}
 	\setlength{\parskip}{1\baselineskip}
-	
+
     \newpage
     \pagenumbering{gobble}
+    \setcounter{pagenumber}{1}
 
     \@employeraddress
 
     \vspace*{1\baselineskip}
-    
+
     \today
 
     \vspace*{1\baselineskip}
@@ -33,12 +34,12 @@
     \vspace*{1\baselineskip}
 
     #1
-    
+
     \vspace*{1\baselineskip}
 }
 {
     \vspace*{1\baselineskip}
-	
+
     \@lettersignature
 
     \vspace{1cm}
@@ -47,6 +48,8 @@
     \@studentnumber
 
     \clearpage
+
+    \setcounter{pagenumber}{\arabic{page}}
 }
 
 \endinput
