@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{environ}
+
+\NewEnviron{backmatter}{
+    \newpage
+    \glsaddall
+    \printglossaries
+    \addcontentsline{toc}{section}{Glossary}
+    \clearpage
+
+    \newpage
+    \printreferences
+    \clearpage
+
+    \newcounter{appendixsection}
+    \stepcounter{appendixsection}
+
+    \renewcommand{\appendix}[1]{
+        \addcontentsline{toc}{section}{Appendix \Alph{appendixsection}: ##1}
+        \section*{Appendix \Alph{appendixsection}: ##1}
+        \stepcounter{appendixsection}
+    }
+
+    \BODY
+}

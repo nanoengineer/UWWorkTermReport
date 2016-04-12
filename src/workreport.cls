@@ -13,12 +13,9 @@
 \RequirePackage[style=ieee, backend=bibtex]{biblatex}
 
 % --- Dependencies on Packages Provided in this Repo
-\RequirePackage{titlepage}
-\RequirePackage{letter_of_submittal}
-\RequirePackage{table_of_contents}
-\RequirePackage{contributions}
-\RequirePackage{summary}
+\RequirePackage{frontmatter}
 \RequirePackage{body}
+\RequirePackage{backmatter}
 
 % --- Page Layout
 \RequirePackage[letterpaper, left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
@@ -30,6 +27,9 @@
 
 \newcounter{pagenumber}
 \setcounter{pagenumber}{1}
+
+\renewcommand*\thesection{\arabic{section}.0}
+\renewcommand*\thesubsection{\arabic{section}.\arabic{subsection}}
 
 % --- Fonts
 \DeclareOption{11pt}{\def\@@ptsize{11pt}}
@@ -94,7 +94,6 @@
 }
 
 \makeglossaries
-
 
 % --- Line Spacing
 

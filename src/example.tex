@@ -48,27 +48,30 @@
 
 \begin{document}
 
-\maketitlepage
+\begin{frontmatter}
+    \maketitlepage
 
-\begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
-	\lipsum[1]
-	\lipsum[2]
+    \begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
+    	\lipsum[1]
+    	\lipsum[2]
 
-\end{letter_of_submittal}
+    \end{letter_of_submittal}
 
-\toctree
+    \toctree
 
-\begin{contributions}
-	\lipsum[1]
-	\lipsum[2]
-	\lipsum[3]
-\end{contributions}
+    \begin{contributions}
+    	\lipsum[1]
+    	\lipsum[2]
+    	\lipsum[3]
+    \end{contributions}
 
-\begin{summary}
-	\lipsum[1-6]
-\end{summary}
+    \begin{summary}
+    	\lipsum[1-6]
+    \end{summary}
 
-\listoffiguresandtables
+    \listoffiguresandtables
+
+\end{frontmatter}
 
 \begin{body}
 \section{Introduction}
@@ -127,12 +130,19 @@ Here's a reference to table \ref{tbl:exampletable}
 
 \section{Recommendations}
 
-	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like \cite{schweiger_principles_2001} will lead to a better quality of work.
+	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like
+    \cite{schweiger_principles_2001} will lead to a better quality of work.
 
 \end{body}
 
-\glsaddall
-\printglossaries
-\addcontentsline{toc}{section}{Glossary}
-\printreferences
+\begin{backmatter}
+
+	\appendix{Here's An Appendix}
+		\lipsum[1-2]
+        
+    \appendix{Here's Another Appendix}
+		\lipsum[1-2]
+
+\end{backmatter}
+
 \end{document}
