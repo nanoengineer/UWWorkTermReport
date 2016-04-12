@@ -16,7 +16,6 @@
     	\setlength{\parskip}{1\baselineskip}
 
         \newpage
-        \phantomsection
         \pagenumbering{gobble}
         \setcounter{pagenumber}{1}
 
@@ -142,9 +141,9 @@
 
 \newcommand{\maketitlepage}{
 \newpage
-\phantomsection
+
 \begin{titlepage}
-    \phantomsection
+    
 	\centering
 
 	{\LARGE  \@university \par}
@@ -175,7 +174,6 @@
 
 \newcommand{\toctree}{
     \newpage
-    \phantomsection
     \setcounter{page}{\thepagenumber}
     \pagenumbering{gobble}
 

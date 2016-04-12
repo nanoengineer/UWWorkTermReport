@@ -35,13 +35,9 @@
 % work term report
 \RequirePackage{setspace}
 
-% Provides hyperlinking capacities for the section and subsection numbering,
-% references, and glossary entries. This package facilitates reading of the work
-% term report through a PDF reader.
-\RequirePackage{hyperref}
 
 % Creates and manages the glossary section of the work term report.
-\RequirePackage[toc, xindy]{glossaries}
+\RequirePackage[toc, xindy, nonumberlist]{glossaries}
 
 % Manages references made in the work term report, using references stored in a
 % .bib file
