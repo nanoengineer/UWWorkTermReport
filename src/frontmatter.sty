@@ -9,7 +9,7 @@
 \renewcommand{\contentsname}{Table of Contents}
 
 \newenvironment{frontmatter}{
-   
+		
 	\maketitlepage
 	
 	% Environment for the letter of submittal
@@ -59,93 +59,90 @@
 	
 	}
 
-		\NewEnviron{contributions}{
+	\NewEnviron{contributions}{
 		
 		\newpage
 		\pagenumbering{roman}
-		\setcounter{page}{\thepagenumber}
+		\setcounter{page}{3}
+	
+		\setstretch{1.5}
+        		\setlength{\parindent}{0cm}
+        		\setlength{\parskip}{1\baselineskip}
 
-        \setstretch{1.5}
-        \setlength{\parindent}{0cm}
-        \setlength{\parskip}{1\baselineskip}
+    		\addcontentsline{toc}{section}{Contributions}
 
-    	\addcontentsline{toc}{section}{Contributions}
+    		\begin{section}*{Contributions}
 
-    	\begin{section}*{Contributions}
+    		\BODY
 
-    	\BODY
+    		\end{section}
+        		\clearpage
+		
+	}
 
-    	\end{section}
-        \clearpage
+	\NewEnviron{summary}{
+	
+		\newpage
 
-        \setcounter{pagenumber}{\arabic{page}}
-    }
+		\setstretch{1.5}
+		\setlength{\parindent}{0cm}
+		\setlength{\parskip}{0.5\baselineskip}
 
-    \NewEnviron{summary}{
-        \newpage
-        \pagenumbering{roman}
-        \setcounter{page}{\thepagenumber}
+		\addcontentsline{toc}{section}{Summary}
+		
+		\begin{section}*{Summary}
 
-        \setstretch{1.5}
-        \setlength{\parindent}{0cm}
-        \setlength{\parskip}{0.5\baselineskip}
+		\BODY
 
-        \addcontentsline{toc}{section}{Summary}
+		\end{section}
+		\clearpage
 
-        \begin{section}*{Summary}
+	}
+	
+	\NewEnviron{conclusions}{
+		
+		\newpage
+		
+		\setstretch{1.5}
+		\setlength{\parindent}{0cm}
+		\setlength{\parskip}{0.5\baselineskip}
 
-        \BODY
+		\addcontentsline{toc}{section}{Conclusions}
 
-        \end{section}
-        \clearpage
+		\begin{section}*{Conclusions}
 
-        \setcounter{pagenumber}{\arabic{page}}
-    }
+		\BODY
 
-    \NewEnviron{conclusions}{
-        \newpage
-        \pagenumbering{roman}
-        \setcounter{page}{\thepagenumber}
+		\end{section}
+		\clearpage
 
-        \setstretch{1.5}
-        \setlength{\parindent}{0cm}
-        \setlength{\parskip}{0.5\baselineskip}
+	}
 
-        \addcontentsline{toc}{section}{Conclusions}
+	\NewEnviron{recommendations}{
+		
+		\newpage
 
-        \begin{section}*{Conclusions}
+		\setstretch{1.5}
+		\setlength{\parindent}{0cm}
+		\setlength{\parskip}{0.5\baselineskip}
 
-        \BODY
+		\addcontentsline{toc}{section}{Recommendations}
 
-        \end{section}
-        \clearpage
-        \setcounter{pagenumber}{\arabic{page}}
-    }
+		\begin{section}*{Recommendations}
 
-    \NewEnviron{recommendations}{
-        \newpage
-        \pagenumbering{roman}
-        \setcounter{page}{\thepagenumber}
+		\BODY
 
-        \setstretch{1.5}
-        \setlength{\parindent}{0cm}
-        \setlength{\parskip}{0.5\baselineskip}
+		\end{section}
+		\clearpage
+		\setcounter{pagenumber}{\arabic{page}}
+		
+	}
 
-        \addcontentsline{toc}{section}{Recommendations}
-
-        \begin{section}*{Recommendations}
-
-        \BODY
-
-        \end{section}
-        \clearpage
-        \setcounter{pagenumber}{\arabic{page}}
-    }
-
-}{}
+}
 
 
 \newcommand{\maketitlepage}{
+
 \newpage
 
 \begin{titlepage}
@@ -178,36 +175,36 @@
 	
 	\restoregeometry
 
-\end{titlepage}
-\clearpage
+	\end{titlepage}
+	\clearpage
+
 }
 
 \newcommand{\toctree}{
-    \newpage
-    \setcounter{page}{\thepagenumber}
-    \pagenumbering{gobble}
 
-    \tableofcontents
+	\newpage
+	
+	\tableofcontents
+	
 	\clearpage
-
-    \setcounter{pagenumber}{\arabic{page}}
+	
 }
 
 \newcommand{\listoffiguresandtables}{
-	\pagenumbering{roman}
-    \setcounter{page}{\thepagenumber}
 
 	\newpage
-    \addcontentsline{toc}{section}{List of Figures}
+	
+	\addcontentsline{toc}{section}{List of Figures}
 	\listoffigures
+	
 	\clearpage
 
 	\newpage
-    \addcontentsline{toc}{section}{List of Tables}
+	
+	\addcontentsline{toc}{section}{List of Tables}
 	\listoftables
+	
 	\clearpage
-
-    \setcounter{pagenumber}{\arabic{page}}
 
 }
 
