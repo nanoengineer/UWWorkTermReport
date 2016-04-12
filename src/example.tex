@@ -65,7 +65,7 @@
     \begin{summary}
     	\lipsum[1-4]
     \end{summary}
-    
+
     \toctree
 
     \begin{conclusions}
@@ -96,15 +96,15 @@
 	\subsection{A Second Subsection}
 
 	\lipsum[2]
-	
+
 	\subsubsection{A Subsection in a Subsection}
-	
+
 	\lipsum[1]
-	
+
 	\subsubsection{Sub-ception}
-	
+
 	\lipsum[1]
-	
+
 	BWOOOONG!
 
 \section{Data}
@@ -165,11 +165,39 @@ Here's a reference to table \ref{tbl:exampletable}
 
 \begin{backmatter}
 
-	\appendix{Here's An Appendix}
+	\begin{appendix}{Here's An Appendix}
 		\lipsum[1-2]
 
-    \appendix{Here's Another Appendix}
+    \end{appendix}
+
+    \begin{appendix}{Here's Another Appendix}
 		\lipsum[1-2]
+    \end{appendix}
+
+    \begin{appendix}{A Figure in An Appendix}
+        \lipsum[1-2]
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=5cm]{./stock-image.jpg}
+            \caption{It's back!}
+        \end{figure}
+
+    \end{appendix}
+
+    \begin{appendix}{A Table in An Appendix}
+        \lipsum[1-2]
+
+        \begin{table}
+            \centering
+            \begin{tabular}{|c|c|c|} \hline
+                \textbf{Data} & \textbf{Integer} & \textbf{Float} \\ \hline
+                Foo & 1 & 1.1 \\ \hline
+            \end{tabular}
+            \caption{A Table in an Appendix, displaying the correct numbering}
+        \end{table}
+
+    \end{appendix}
 
 \end{backmatter}
 
