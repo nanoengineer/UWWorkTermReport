@@ -16,6 +16,7 @@
     	\setlength{\parskip}{1\baselineskip}
 
         \newpage
+        \phantomsection
         \pagenumbering{gobble}
         \setcounter{pagenumber}{1}
 
@@ -49,9 +50,9 @@
         \@author \\
         \@studentnumber
 
+        \setcounter{pagenumber}{\arabic{page}}
         \clearpage
 
-        \setcounter{pagenumber}{\arabic{page}}
     }
 
     \NewEnviron{contributions}{
@@ -140,9 +141,10 @@
 
 
 \newcommand{\maketitlepage}{
-
+\newpage
+\phantomsection
 \begin{titlepage}
-
+    \phantomsection
 	\centering
 
 	{\LARGE  \@university \par}
@@ -169,17 +171,16 @@
 	\today \par
 
 \end{titlepage}
-
+\clearpage
 }
 
 \newcommand{\toctree}{
-
+    \newpage
+    \phantomsection
+    \setcounter{page}{\thepagenumber}
     \pagenumbering{gobble}
 
-    \setcounter{page}{\thepagenumber}
-
-    \newpage
-	\tableofcontents
+    \tableofcontents
 	\clearpage
 
     \setcounter{pagenumber}{\arabic{page}}
@@ -189,16 +190,13 @@
 	\pagenumbering{roman}
     \setcounter{page}{\thepagenumber}
 
-    \addcontentsline{toc}{section}{List of Figures}
-
 	\newpage
+    \addcontentsline{toc}{section}{List of Figures}
 	\listoffigures
 	\clearpage
 
 	\newpage
-
     \addcontentsline{toc}{section}{List of Tables}
-
 	\listoftables
 	\clearpage
 
