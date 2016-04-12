@@ -9,55 +9,61 @@
 \renewcommand{\contentsname}{Table of Contents}
 
 \newenvironment{frontmatter}{
-    \maketitlepage
+   
+	\maketitlepage
+	
+	% Environment for the letter of submittal
+	\NewEnviron{letter_of_submittal}[2]{
+        
+		\newgeometry{letterpage}
+		\pagenumbering{gobble}
+		
+		\setlength{\parindent}{0cm}
+		\setlength{\parskip}{1\baselineskip}
 
-    \NewEnviron{letter_of_submittal}[2]{
-        \setlength{\parindent}{0cm}
-    	\setlength{\parskip}{1\baselineskip}
+		\newpage
+       
+		\@employeraddress
 
-        \newpage
-        \pagenumbering{gobble}
-        \setcounter{pagenumber}{1}
+		\vspace*{0pt}
 
-        \@employeraddress
+		\today
 
-        \vspace*{1\baselineskip}
+		\vspace*{0pt}
 
-        \today
+		\@programdirector, Director \\
+		\@program \\
+		\@university \\
+		\@universityaddress
 
-        \vspace*{1\baselineskip}
+		\vspace*{0pt}
+		
+		##1
+		
+		\vspace*{0pt}
 
-        \@programdirector, Director \\
-        \@program \\
-        \@university \\
-        \@universityaddress
+		\BODY
+		
+		\vspace*{0pt}
 
-        \vspace*{1\baselineskip}
+		##2
 
-        ##1
+		\vspace{1cm}
 
-        \vspace*{1\baselineskip}
+		\@author \\
+		\@studentnumber
 
-        \BODY
+		\clearpage
+		
+		\restoregeometry
+	
+	}
 
-        \vspace*{1\baselineskip}
-
-        ##2
-
-        \vspace{1cm}
-
-        \@author \\
-        \@studentnumber
-
-        \setcounter{pagenumber}{\arabic{page}}
-        \clearpage
-
-    }
-
-    \NewEnviron{contributions}{
-        \newpage
-        \pagenumbering{roman}
-        \setcounter{page}{\thepagenumber}
+		\NewEnviron{contributions}{
+		
+		\newpage
+		\pagenumbering{roman}
+		\setcounter{page}{\thepagenumber}
 
         \setstretch{1.5}
         \setlength{\parindent}{0cm}
@@ -143,7 +149,9 @@
 \newpage
 
 \begin{titlepage}
-    
+
+	\newgeometry{letterpage}
+	
 	\centering
 
 	{\LARGE  \@university \par}
@@ -167,6 +175,8 @@
 	User ID \@studentid \par
 	\@previousterm \hspace{1pt} \@program \par
 	\today \par
+	
+	\restoregeometry
 
 \end{titlepage}
 \clearpage
