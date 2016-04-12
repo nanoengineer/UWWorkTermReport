@@ -28,6 +28,24 @@
     N2L 3G1
 }
 
+\newglossaryentry{LaTeX}{
+    name={\LaTeX},
+    description={A document preparation system used for
+        high-quality typesetting. It is most often used
+        for medium-to-large technical or scientific documents.
+        \LaTeX is not a word processor!
+    }
+}
+
+\newglossaryentry{Unix}{
+	name={Unix},
+	description={A multi-user multi-tasking operating system
+	developed by Ken Thompson and Dennis Ritchie in the 1970s, which has inspired many features behind Mac OSX and Linux
+}
+}
+
+\addbibresource{./example.bib}
+
 \begin{document}
 
 \maketitlepage
@@ -62,13 +80,13 @@
 \lipsum[1-2]
 
 	\subsection{A Subsection}
-	
+
 	\lipsum[1]
-	
+
 	\subsection{A Second Subsection}
-	
+
 	\lipsum[2]
-	
+
 \section{Data}
 
 \lipsum[1-2]
@@ -97,19 +115,24 @@ Here's a reference to table \ref{tbl:exampletable}
 		\frac{d\, M_y(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_y - \frac{M_y(t)}{T_2} \\
 		\frac{d\, M_z(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_z - \frac{M_z(t) - M_0}{T_1}
 	\end{align}
-	
+
 \subsection{The Schrodinger Equation}
 
 	\begin{equation}
 		i\hbar \frac{\partial \, \Psi}{\partial t} = \hat{H}\Psi
 	\end{equation}
-	
+
 \section{Conclusions}
-	\LaTeX \, is awesome.
-	
+	\gls{LaTeX} is awesome.
+
 \section{Recommendations}
 
-	Use more \LaTeX
+	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like \cite{schweiger_principles_2001} will lead to a better quality of work.
 
 \end{body}
+
+\glsaddall
+\printglossaries
+\addcontentsline{toc}{section}{Glossary}
+\printreferences
 \end{document}

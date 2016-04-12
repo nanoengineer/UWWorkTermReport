@@ -8,6 +8,9 @@
 
 % --- External Dependencies
 \RequirePackage{setspace}
+\RequirePackage{hyperref}
+\RequirePackage[toc, xindy]{glossaries}
+\RequirePackage[style=ieee, backend=bibtex]{biblatex}
 
 % --- Dependencies on Packages Provided in this Repo
 \RequirePackage{titlepage}
@@ -84,6 +87,13 @@
 \newcommand{\programdirector}[1]{
     \def\@programdirector{#1}
 }
+
+\newcommand{\printreferences}{
+	\addcontentsline{toc}{section}{References}
+	\printbibliography
+}
+
+\makeglossaries
 
 
 % --- Line Spacing
