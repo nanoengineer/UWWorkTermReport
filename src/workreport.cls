@@ -151,6 +151,38 @@
 
 \makeglossaries
 
-% --- Line Spacing
+% --- Ensures that sections are correctly formatted in the table of contents
+
+\titlecontents{section}
+[0pt] % left margin
+{\vspace{2pt}} % above code
+{
+    \thecontentslabel\enspace
+} % numbered entry format
+{\hspace{4pt}\contentsmargin{0pt}} % un-numbered entry format
+{\titlerule*[.5pc]{.}\contentspage} % separator
+[] % below code
+
+\titlecontents{subsection}
+[10pt]
+{}
+{
+    \contentsmargin{10pt}
+    \thecontentslabel\enspace
+} % numbered entry format
+{\contentsmargin{0pt}} % un-numbered entry format
+{\titlerule*[.5pc]{.}\contentspage} % separator
+[] % below code
+
+\titlecontents{subsubsection}
+[20pt]
+{}
+{
+    \contentsmargin{10pt}
+    \thecontentslabel\enspace
+}
+{\contentsmargin{10pt}}
+{\titlerule*[.5pc]{.}\contentspage} % separator
+[] % below code
 
 \endinput
