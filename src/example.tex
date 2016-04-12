@@ -6,8 +6,8 @@
 	Example Work Term Report Style
 }
 
-\author{Example}
-\studentnumber{20140469}
+\author{Regina Phalangey}
+\studentnumber{40440404}
 \studentid{example}
 \previousterm{2B}
 
@@ -21,11 +21,11 @@
     N2L 3G1
 }
 
-\employername{Institute for Quantum Computing}
+\employername{Employer Inc.}
 \employeraddress{
-    200 University Ave. West \\
+    200 Payment St. \\
     Waterloo, ON \\
-    N2L 3G1
+    A1A 1A1
 }
 
 \newglossaryentry{LaTeX}{
@@ -48,27 +48,37 @@
 
 \begin{document}
 
-\maketitlepage
+\begin{frontmatter}
 
-\begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
-	\lipsum[1]
-	\lipsum[2]
+    \begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
+    	\lipsum[1]
+    	\lipsum[2]
 
-\end{letter_of_submittal}
+    \end{letter_of_submittal}
 
-\toctree
+    \begin{contributions}
+    	\lipsum[1]
+    	\lipsum[2]
+    	\lipsum[3]
+    \end{contributions}
 
-\begin{contributions}
-	\lipsum[1]
-	\lipsum[2]
-	\lipsum[3]
-\end{contributions}
+    \begin{summary}
+    	\lipsum[1-4]
+    \end{summary}
 
-\begin{summary}
-	\lipsum[1-6]
-\end{summary}
+    \toctree
 
-\listoffiguresandtables
+    \begin{conclusions}
+        \lipsum[1-3]
+    \end{conclusions}
+
+    \begin{recommendations}
+        \lipsum[1-3]
+    \end{recommendations}
+
+    \listoffiguresandtables
+
+\end{frontmatter}
 
 \begin{body}
 \section{Introduction}
@@ -77,7 +87,7 @@
 
 \section{Background}
 
-\lipsum[1-2]
+\lipsum[1-2]-
 
 	\subsection{A Subsection}
 
@@ -86,6 +96,16 @@
 	\subsection{A Second Subsection}
 
 	\lipsum[2]
+
+	\subsubsection{A Subsection in a Subsection}
+
+	\lipsum[1]
+
+	\subsubsection{Sub-ception}
+
+	\lipsum[1]
+
+	BWOOOONG!
 
 \section{Data}
 
@@ -122,17 +142,63 @@ Here's a reference to table \ref{tbl:exampletable}
 		i\hbar \frac{\partial \, \Psi}{\partial t} = \hat{H}\Psi
 	\end{equation}
 
+\section{Graphics}
+    Here's a stock image of a computer. It comes with a CC0 license, enabling
+    free distribution for commercial and personal use. It's a JPEG
+
+    \begin{figure}[!ht]
+    	\centering
+        \label{fig:stock_computer}
+        \includegraphics[width=5cm]{./stock-image.jpg}
+        \caption{A stock computer, I just wanted a picture here}
+    \end{figure}
+
 \section{Conclusions}
 	\gls{LaTeX} is awesome.
 
 \section{Recommendations}
 
-	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like \cite{schweiger_principles_2001} will lead to a better quality of work.
+	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like
+    \cite{schweiger_principles_2001} will lead to a better quality of work.
 
 \end{body}
 
-\glsaddall
-\printglossaries
-\addcontentsline{toc}{section}{Glossary}
-\printreferences
+\begin{backmatter}
+
+	\begin{appendix}{Here's An Appendix}
+		\lipsum[1-2]
+
+    \end{appendix}
+
+    \begin{appendix}{Here's Another Appendix}
+		\lipsum[1-2]
+    \end{appendix}
+
+    \begin{appendix}{A Figure in An Appendix}
+        \lipsum[1-2]
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=5cm]{./stock-image.jpg}
+            \caption{It's back!}
+        \end{figure}
+
+    \end{appendix}
+
+    \begin{appendix}{A Table in An Appendix}
+        \lipsum[1-2]
+
+        \begin{table}
+            \centering
+            \begin{tabular}{|c|c|c|} \hline
+                \textbf{Data} & \textbf{Integer} & \textbf{Float} \\ \hline
+                Foo & 1 & 1.1 \\ \hline
+            \end{tabular}
+            \caption{A Table in an Appendix, displaying the correct numbering}
+        \end{table}
+
+    \end{appendix}
+
+\end{backmatter}
+
 \end{document}
