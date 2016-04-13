@@ -1,17 +1,18 @@
-% -- body.sty
+% This file contains the implementation of the rules for formatting the body of a 
+% nanotechnology engineering workterm report.
 
 \ProvidesPackage{body}
 
 \newenvironment{body}{
-    \newpage
-    \pagenumbering{arabic}
-    \setcounter{page}{1}
-    \setstretch{1.5}
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\setstretch{1.5}
 
-    \setlength{\parindent}{0cm}
-    \setlength{\parskip}{0.5\baselineskip}
+	\setlength{\parindent}{0cm}
+	\setlength{\parskip}{0.5\baselineskip}
 
 }{
-    \clearpage
-    \setcounter{pagenumber}{\arabic{page}}
+	\clearpage
+	\setcounter{pagenumber}{\arabic{page}}
 }
