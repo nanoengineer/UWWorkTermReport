@@ -1,107 +1,166 @@
+% example.tex - an example workterm report that can be used as a template for writing NE 
+% workterm reports
+
+% We begin by calling the workreport class which includes all the definitions for the macros 
+% and environments we will be using throughout the document.
 \documentclass{workreport}
+
+% We will use some packages to add some functionality to our script.
+% The lipsum package is only used to create placeholder text for this example. It can be 
+% deleted when your own text has been filled into the sections.
 \usepackage{lipsum}
+% The amsmath package provides various features to facilitate writing math formulas.
 \usepackage{amsmath}
 
+%%%%%%%%%%%%%%%%%%
+%  IMPORTANT  INFORMATION  %
+%%%%%%%%%%%%%%%%%%
+
+% Fill in the title of your report 
 \title{
 	Example Work Term Report Style
 }
 
+% Fill in your name
 \author{Regina Phalangey}
+
+% Fill in your student number
 \studentnumber{40440404}
+
+% Fill in your student ID
 \studentid{example}
+
+% Fill in your previous academic term
 \previousterm{2B}
 
+% Fill in the name of your university
 \university{University of Waterloo}
+
+% Fill in your faculty
 \faculty{Engineering}
+
+% Fill in your program
 \program{Nanotechnology Engineering}
+
+% Fill in your program director
 \programdirector{John Doe}
+
+% Fill in the address of your university
 \universityaddress{
-    200 University Ave. West \\
-    Waterloo, ON \\
-    N2L 3G1
+	200 University Ave. West \\
+	Waterloo, ON \\
+	N2L 3G1
 }
 
+% Fill in your employers name
 \employername{Employer Inc.}
+
+% Fill in your employers address
 \employeraddress{
-    200 Payment St. \\
-    Waterloo, ON \\
-    A1A 1A1
+	200 Payment St. \\
+	Waterloo, ON \\
+	A1A 1A1
 }
 
-\newglossaryentry{LaTeX}{
-    name={\LaTeX},
-    description={A document preparation system used for
-        high-quality typesetting. It is most often used
-        for medium-to-large technical or scientific documents.
-        \LaTeX is not a word processor!
-    }
-}
-
-\newglossaryentry{Unix}{
-	name={Unix},
-	description={A multi-user multi-tasking operating system
-	developed by Ken Thompson and Dennis Ritchie in the 1970s, which has inspired many features behind Mac OSX and Linux
-}
-}
-
-\addbibresource{./example.bib}
-
+% We will now begin writing the document
 \begin{document}
 
+%%%%%%%%%%%
+% FRONT MATTER %
+%%%%%%%%%%%
+
+% The \begin{frontmatter} command will allow the use of the following environments:
+% letter_of_submittal, contributions, summary, conclusions, recommendations, toctree
+% (table of contents) and listoffiguresandtables (list of figures and list of tables).
 \begin{frontmatter}
 
-    \begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
-    	\lipsum[1]
-    	\lipsum[2]
+% The letter_of_submittal environment requires two inputs, the first being the greeting 
+% and the second being the closing.
+\begin{letter_of_submittal}{Dear Dr. Doe:}{Sincerely,}
+    	
+	% You're letter body.
+	\lipsum[1-2]
 
-    \end{letter_of_submittal}
+\end{letter_of_submittal}
 
-    \begin{contributions}
-    	\lipsum[1]
-    	\lipsum[2]
-    	\lipsum[3]
-    \end{contributions}
+% The contribution environment only requires the contributions text.
+\begin{contributions}
 
-    \begin{summary}
+    	\lipsum[1-3]
+	
+\end{contributions}
+
+% The summary environment only requires the summary text.
+\begin{summary}
+
     	\lipsum[1-4]
-    \end{summary}
 
-    \toctree
+\end{summary}
 
-    \begin{conclusions}
+% The conclusions environment only requires the conclusions text.
+\begin{conclusions}
+
         \lipsum[1-3]
-    \end{conclusions}
+        
+\end{conclusions}
 
-    \begin{recommendations}
+% The recommendations environment only requires the recmmendations text.
+\begin{recommendations}
+
         \lipsum[1-3]
-    \end{recommendations}
+        
+\end{recommendations}
 
-    \listoffiguresandtables
+% The following command generates a table of contents (toc) that automatically keeps 
+% track of sections and their page numbers.
+\toctree
+
+% The following command generates a list of figures and a list of tables that
+% automatically keep track of properly inserted figures and tables. The commands for 
+% properly inserting figures and tables will be explained in the body section of this 
+% document.
+\listoffiguresandtables
 
 \end{frontmatter}
 
+%%%%%%
+% BODY  %
+%%%%%%
+
+% The \begin{body} command will create the body environment. This environment 
+% includes the formatting required for the body
 \begin{body}
+
+% The \section{title} command creates a section in the body of your report. You must
+% specify the title of the section as the commands input. These sections headers will
+% automatically be added to the table of contents.
 \section{Introduction}
 
-\lipsum[1-6]
+	\lipsum[1-6]
 
 \section{Background}
 
-\lipsum[1-2]-
+	\lipsum[1-2]-
 
-	\subsection{A Subsection}
+% The \subsection{title} command creates a subsection for the above mentioned
+% section. You must specify the title of the section as the commands input. These 
+% subsection headers will automatically be added to the table of contents, below the 
+% proper section.
+\subsection{A Subsection}
 
 	\lipsum[1]
 
-	\subsection{A Second Subsection}
+\subsection{A Second Subsection}
 
 	\lipsum[2]
 
-	\subsubsection{A Subsection in a Subsection}
+% The \subsubsection{title} command works exactly like the \section{title} and 
+% \subsection{title} commands above. 
+\subsubsection{A Subsection in a Subsection}
 
 	\lipsum[1]
 
-	\subsubsection{Sub-ception}
+\subsubsection{Sub-ception}
 
 	\lipsum[1]
 
@@ -109,8 +168,9 @@
 
 \section{Data}
 
-\lipsum[1-2]
-
+	\lipsum[1-2]
+	
+% This is where I stopped commenting (2016-04-13)
 Here's a reference to table \ref{tbl:exampletable}
 
 \begin{table}
@@ -162,6 +222,25 @@ Here's a reference to table \ref{tbl:exampletable}
     \cite{schweiger_principles_2001} will lead to a better quality of work.
 
 \end{body}
+
+\newglossaryentry{LaTeX}{
+    name={\LaTeX},
+    description={A document preparation system used for
+        high-quality typesetting. It is most often used
+        for medium-to-large technical or scientific documents.
+        \LaTeX is not a word processor!
+    }
+}
+
+\newglossaryentry{Unix}{
+	name={Unix},
+	description={A multi-user multi-tasking operating system
+	developed by Ken Thompson and Dennis Ritchie in the 1970s, which has inspired many features behind Mac OSX and Linux
+}
+}
+
+\addbibresource{./example.bib}
+
 
 \begin{backmatter}
 
