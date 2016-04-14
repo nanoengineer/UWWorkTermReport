@@ -36,7 +36,7 @@ The following is a list of documentation pertaining to a few commands and packag
 * [Glossary and Acronyms][6]
 
 [3]: https://www.sharelatex.com/learn/Tables
-[4]: ftp://ftp.ams.org/pub/tex/doc/amsmath/amsldoc.pdf
+[4]: http://bit.ly/1SOkDHR
 [5]: https://www.sharelatex.com/learn/Positioning_of_Figures
 [6]: https://www.sharelatex.com/learn/Glossaries
 
