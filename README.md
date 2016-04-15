@@ -4,7 +4,7 @@ This is a LaTeX document class that was written with the intention of making the
 
 The class was written by Michal Kononenko, with help from Paulo Miguel.
 
-This class conforms with the new guidelines for NE workterm reports (introduced Fall 2016).
+The package was written to conform to the work report guidelines v_1.1 in the Nanotechnology Engineering WKRPT 300 course. While we try our best to conform to the standard, we can IN NO WAY GUARANTEE THAT THIS PACKAGE WILL FORMAT THE WORK TERM REPORT PROPERLY. There may be bugs. Therefore, we must be vigilant. If you find a bug, please report it [here](https://github.com/MichalKononenko/UWWorkTermReport/issues/new).
 
 ## Why Use LaTeX?
 
