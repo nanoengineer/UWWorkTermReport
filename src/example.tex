@@ -283,7 +283,8 @@ Here's a reference to table \ref{tbl:exampletable}
 
 % The \begin{backmatter} command will create the backmatter environment. This 
 % environment includes the formatting required for the body, as well as the the 	
-% appendix environment.
+
+% backmatter environment. This environment is where the glossary, references, and appendices are inserted. You, the user, don't have to worry about inserting references or glossaries. These are built for you at compile-time from the \cite and \gls flags that you placed in your code, as well as entries in your bib files. The glossary and references are pre-pended to the appendices as separate pages at the beginning of this environment. You, however, must write your appendices in this environment.
 \begin{backmatter}
 
 % The appendix environment creates an appendix that will be properly added to 
