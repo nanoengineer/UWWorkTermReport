@@ -16,7 +16,6 @@
 	% Environment for the letter of submittal
 	\NewEnviron{letter_of_submittal}[2]{
 
-		\newgeometry{letterpage}
 		\pagenumbering{gobble}
 
 		\setlength{\parindent}{0cm}
@@ -55,11 +54,7 @@
 		\@studentnumber
 
 		\clearpage
-
-		\restoregeometry
-
 	}
-
 	\NewEnviron{contributions}{
 
 		\newpage
@@ -147,8 +142,6 @@
 \newpage
 
 \begin{titlepage}
-
-	\newgeometry{letterpage}
 
 	\centering
 

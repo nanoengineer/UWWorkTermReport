@@ -12,6 +12,19 @@
 % The amsmath package provides various features to facilitate writing math formulas.
 \usepackage{amsmath}
 
+
+% LaTeX also supports file splitting between documents. For example, your
+% introduction section could be in its own "introduction.tex" file, and you
+% can import it here. This is normally done with the \input command.
+
+% The \addbibresource command finds a BiBLaTeX file, and adds it to the
+% document. BiBLatex and BiBTex are TeX extensions that automatically build
+% format citations and references based on a key-value database sitting in a
+% text file. In our case, this file is example.bib. We add this to the preamble
+% (the part of the tex file before \begin{document}) here.
+\addbibresource{./example.bib}
+
+
 %%%%%%%%%%%%%%%%%%
 %  IMPORTANT  INFORMATION  %
 %%%%%%%%%%%%%%%%%%
@@ -122,6 +135,29 @@
 \listoffiguresandtables
 
 \end{frontmatter}
+
+% The \newglossaryentry{title} command creates an entry for the glossary. It requires a 
+% name and description. The title is used for making references to the glossary entry 
+% throughout the document. For more information on the glossary and acronyms, refer 
+% to the link under Glossary and Acronyms in README.md.
+% These can be located anywhere in the document as long as they are declared before any \gls command references them
+\newglossaryentry{LaTeX}{
+	name={\LaTeX},
+	description={A document preparation system used for
+		high-quality typesetting. It is most often used
+		for medium-to-large technical or scientific documents.
+		\LaTeX is not a word processor!
+	}
+}
+
+\newglossaryentry{Unix}{
+	name={Unix},
+	description={A multi-user multi-tasking operating system
+		developed by Ken Thompson and Dennis Ritchie in the 
+		1970s, which has inspired many features behind Mac OSX 
+		and Linux
+}
+}
 
 %%%%%%
 % BODY  %
@@ -253,29 +289,6 @@ Here's a reference to table \ref{tbl:exampletable}
 
 \end{body}
 
-% The \newglossaryentry{title} command creates an entry for the glossary. It requires a 
-% name and description. The title is used for making references to the glossary entry 
-% throughout the document. For more information on the glossary and acronyms, refer 
-% to the link under Glossary and Acronyms in README.md.
-\newglossaryentry{LaTeX}{
-	name={\LaTeX},
-	description={A document preparation system used for
-		high-quality typesetting. It is most often used
-		for medium-to-large technical or scientific documents.
-		\LaTeX is not a word processor!
-	}
-}
-
-\newglossaryentry{Unix}{
-	name={Unix},
-	description={A multi-user multi-tasking operating system
-		developed by Ken Thompson and Dennis Ritchie in the 
-		1970s, which has inspired many features behind Mac OSX 
-		and Linux
-}
-}
-
-\addbibresource{./example.bib}
 
 %%%%%%%%%%%
 %  BACK MATTER  %
