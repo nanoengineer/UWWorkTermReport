@@ -5,7 +5,6 @@
 	\newpage
 	\glsaddall
 	\printglossaries
-	\addcontentsline{toc}{section}{Glossary}
 	\clearpage
 
 	\newpage
@@ -13,20 +12,18 @@
 	\clearpage
 
 	\newcounter{appendixsection}
-	\newcounter{appendixfigurenumber}[appendixsection]
-	\newcounter{appendixtablenumber}[appendixsection]
 
-	\renewcommand{\thefigure}{\Alph{appendixsection}.\arabic{appendixfigurenumber}}
-	\renewcommand{\thetable}{\Alph{appendixsection}.\arabic{appendixtablenumber}}
+	\renewcommand{\thefigure}{
+		\Alph{appendixsection}.\arabic{figure}
+	}
+	\renewcommand{\thetable}{\Alph{appendixsection}.\arabic{table}}
+	
 
 	\renewenvironment{appendix}[1]{
 		\newpage
-
 		\stepcounter{appendixsection}
-		\stepcounter{appendixfigurenumber}
-		\stepcounter{appendixtablenumber}
-
-
+		\setcounter{figure}{0}
+		\setcounter{table}{0}
 		\addcontentsline{toc}{section}{Appendix \Alph{appendixsection}: ##1}
 		\section*{Appendix \Alph{appendixsection}: ##1}
 	}

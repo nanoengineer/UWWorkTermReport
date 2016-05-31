@@ -1,5 +1,6 @@
 #!/bin/bash
 # Clean up the source directory
+filename=example
 
 rm ${filename}.aux
 rm ${filename}.bbl
@@ -12,4 +13,7 @@ rm ${filename}.lot
 rm ${filename}.run.xml
 rm ${filename}.toc
 rm ${filename}.xdy
+rm ${filename}.glg
+rm ${filename}.gls
+rm ${filename}.log
 rm ./texput.log
