@@ -37,7 +37,7 @@
 
 
 % Creates and manages the glossary section of the work term report.
-\RequirePackage[toc, xindy, nonumberlist]{glossaries}
+\RequirePackage[toc, xindy, nonumberlist, nopostdot]{glossaries}
 
 % Manages references made in the work term report, using references stored in a
 % .bib file
