@@ -1,5 +1,5 @@
 #!/bin/bash
-filename=example
+filename=report3b
 
 # Run the compilation
 pdflatex ./${filename}.tex
