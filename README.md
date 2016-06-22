@@ -48,18 +48,27 @@ For more general documentation on LaTeX environments and commands, [sharelatex.c
 ## Compiling example.tex
 
 Popular document editors like Microsoft Word are built on the principle of "WYSIWYG", or "What You See Is What You Get". LaTeX is not one of those editors. As a result, LaTeX requires a separate "compilation" step between you writing your ```.tex``` file, and converting that file into a ```.pdf``` file suitable for publishing or submission. Furthermore, some of the dynamic features like glossaries and references require are not part of a "standard" LaTeX compilation process. The onus is on you, the user, to run the ```makeglossaries``` and ```bibtex``` commands in the appropriate order to build your work term report.
-In order to successfully build the example document, you will need a TeX back end to do the actual typesetting. This project was tested with [TeXLive][8] as the back end.
+In order to successfully build the example document, you will need a TeX back end to do the actual typesetting. This project was tested with [TeXLive][8] as the back end. In order to meet the Times New Roman font requirements, ```xelatex``` was used as the typesetting engine.
 
 [8]: https://www.tug.org/texlive/
 
-Ensure that you have ```pdflatex```, ```bibtex```, and ```makeglossaries``` available on your machine. You can check if you have them by using the ```which``` command, followed by the name of the program. On Windows, the command is ```where```. If this works, follow the instructions below.
+Ensure that you have ```xelatex```, ```bibtex```, and ```makeglossaries``` available on your machine. You can check if you have them by using the ```which``` command, followed by the name of the program. On Windows, the command is ```where```. If this works, follow the instructions below.
 
 1. ```cd``` into the ```src``` directory of this repository.
-2. Run ```pdflatex example.tex```. When you will be making your work term report, you will replace ```example.tex``` with your own ```.tex``` file. You should see a bunch of files in the source directory.
+2. Run ```xelatex example.tex```. When you will be making your work term report, you will replace ```example.tex``` with your own ```.tex``` file. You should see a bunch of files in the source directory.
 3. Run ```bibtex example```. Notice the omission of the file extension. This is intentional. This will build a database of citations using a ```.bib``` file that you specify in your ```.tex``` file.
 4. Run ```makeglossaries example```, again omitting the file extension. This program works similarly to ```bibtex```, but it builds the glossary instead of the bibliography.
-5. Run ```pdflatex example.tex```. This second run of ```pdflatex``` updates the build with the glossaries and references.
+5. Run ```xelatex example.tex```. This second run of ```pdflatex``` updates the build with the glossaries and references.
 6. At this point, you should see an ```example.pdf``` file in the ```src``` directory. This is the completed build.
+
+## For ShareLaTeX Users
+Due to licensing restrictions, ShareLaTeX is unable to distribute the Times New Roman font on their website. Therefore, you will need to upload your Times New Roman font files to ShareLaTeX. On my machine running Ubuntu 14.04, the font file was in ```/usr/share/fonts/truetype/msttcorefonts/Times New Roman.ttf```. This file needs to be uploaded to ShareLaTeX.
+
+In addition to this, ```workreport.cls```, ```frontmatter.sty```, ```body.sty```, and ```backmatter.sty``` need to be in the main working directory of your ShareLaTeX project.
+
+Ensure that ShareLaTeX is using ```XeLaTeX``` to typeset your document. By default, the site will use ```pdflatex``` as the typesetting engine, but this can be changed in the project settings.
+
+Lastly, some edits need to be made in ```workreport.cls```, in order to let XeLaTeX know that we want to use the Times New Roman font from the ```.ttf``` file we just uploaded. Between lines 100 to 124, there is a command ```\setmainfont``` inside a ```\DeclareOption``` command. Search for the ```\setmainfont``` command and you should find it. Change its mandatory argument (the thing in curly braces ```{``` ```}```), to the name of your Times New Roman ttf file. The document should compile.
 
 ## Contributors
 
