@@ -2,10 +2,10 @@
 filename=example
 
 # Run the compilation
-pdflatex ./${filename}.tex
+xelatex ./${filename}.tex
 bibtex ./${filename}
 makeglossaries ./${filename}
-pdflatex ./${filename}
+xelatex ./${filename}
 
 # Remove files formed as a result of compilation
 rm ${filename}.aux
