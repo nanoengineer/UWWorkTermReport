@@ -58,11 +58,11 @@
 % Set margins for the pages in the work term report
 \RequirePackage[letterpaper, left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
 
-% Use the Adobe Times font instead of the default Computer Modern LaTeX font
-\RequirePackage{mathptmx}
-
 % Allows user to put in graphics into their work term report
 \RequirePackage{graphicx}
+
+% This package is required by XeTeX to load and modify TrueType fonts. These fonts are located on your computer as *.ttf files.
+\RequirePackage{fontspec}
 
 % Format titles to have the requisite spacing between them (2 lines is interpreted to be 24 pt)
 \RequirePackage{titlesec}
@@ -102,15 +102,17 @@
 \newcounter{pagenumber}
 \setcounter{pagenumber}{1}
 
+% Ensure that the sections render correctly
 \renewcommand*\thesection{\arabic{section}.0}
 \renewcommand*\thesubsection{\arabic{section}.\arabic{subsection}}
 
-% --- Fonts
-\DeclareOption{11pt}{\def\@@ptsize{11pt}}
-% --- Default Options
-\ExecuteOptions{11pt}
+% Hotfix for rendering the Reduced Planck constant (hbar) using the $\hbar$ command
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
 
-\ProcessOptions\relax
+% --- Fonts, scale the text to 11pt font
+\setmainfont[Ligatures=TeX,Scale=0.95]{Times New Roman}
 
 % --- User Data
 
