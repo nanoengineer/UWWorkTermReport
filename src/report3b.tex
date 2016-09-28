@@ -91,32 +91,50 @@
 \begin{letter_of_submittal}{Dear Dr. Tang:}{Sincerely,}
 
 	% You're letter body.
-	\lipsum[1-2]
+	This work report, titled “Design of Bluetooth Low Energy Controlled Model Rocket”, was written upon the completion of my 3B work term for Nordic Semiconductor ASA. This report is to be submitted for the fulfillment of WKRPT 400. The purpose of the report is to reflect on the engineering design process behind the model rocket demo project for the Applications Group and to pass on knowledge of model rocketry to the rest of the group so that the project can be further developed and improved upon if desired.
+
+	Nordic Semiconductor ASA is a Norwegian technology company that focuses on delivering the best ultra-low power wireless solutions and is currently a leader in the Bluetooth Low Energy market. The company's profit source is the selling of Bluetooth Low Energy chips, but it also has many teams that work on relevant hardware, software, and services which are provided to their customers or potential customers free of charge in order to help them easily integrate Nordic chips into their products and business. During my work term I worked in the Applications Group, led by Endre Rindalsholt, which is mainly responsible for creating reference designs and demo projects to showcase potential product concepts and a sample design for customers to reference their products off of.
+
+	I hereby confirm that I have received no assistance in writing this report. I also confirm this report has not been previously submitted for academic credit at this or any other academic institution.
+
 
 \end{letter_of_submittal}
 
 % The contribution environment only requires the contributions text.
 \begin{contributions}
 
-    	\lipsum[1-3]
+  During my employment at the Applications Group, the team consisted of around 15 full-time employees and summer students working on embedded firmware, electrical hardware, and web applications for Bluetooth Low Energy devices. These projects were all aimed to help our customers have a easier time developing products with our chips and help them reach full volume production and go to market faster. It was a very energetic group with lots of exciting multidisciplinary hands-on projects.
+
+	My three projects at Nordic were sensor driver development, security enhanced Eddystone beacon firmware development in partnership with Google, and finally a Bluetooth Low Energy (BLE) enabled model rocket demo project. The project that will be reported on and discussed in detail in the report is the BLE enabled model rocket. The purpose of this project was to create a proof of concept (PoC) prototype of a model rocket that is running on Nordic's latest BLE system-on-chip (SoC), nRF52832, to showcase an application of BLE in medium-range toys because future BLE specifications are going to allow for higher transmit powers thus significantly increasing the previously limited range of BLE and making it a suitable technology for medium range applications. Moreover, this project was an opportunity for me to develop my skills in printed circuit board (PCB) layout and schematic design, antenna tuning, and mechanical design which were laid out as part of my learning outcomes in the beginning of the work term. The entire process involved internet research of the current model rocketry market, the existing types of model rockets and their associated flight dynamics and equipment requirements and instruments, as well as available purchasing locations for such resources; prototyping of a reliable engine ignition mechanic and parachute deployment mechanic; circuit design and PCB layout of the entire electronic system including the communication system, telemetry system, and ignition and recovery deployment system; design and prototype the mechanical assembly through 3D modeling and 3D printing, and finally validation and tuning of flight dynamics with model rocketry simulation software. This project was mainly a solo effort with input and constructive feedback from my teammates on specific topics of their expertise such as firmware and electronics.
+
+	The relationship between this report and my work is that the report captures all the new knowledge developed about electronic wireless model rocketry which is a brand new field of knowledge in the group. Also this report allows me to reflect on the engineering design and analysis behind several complex systems in the rocket which all manifest into very useful lessons for my future career. It also serves as a reminder that any technical knowledge, even rocket science, can be learned from the ground up in a shot span of time as long as you put your curious and analytical mind behind it!
+
+	In the broader scheme of things, my work at Nordic Semiconductor on the BLE model rocket project has set an example that broadens the horizon on what kind of applications BLE can be at the heart of. It pushes the boundaries on what kind of devices people typically associate with BLE and have also generated significant social media interest for Nordic Semiconductor by live broadcasting the rocket launch on Facebook, thusly creating a cool and fun image for the company. My work with the rocket has also introduced many members of the team to a cloud-based 3D modeling software, OnShape, that I have picked up from my previous work term that is much more powerful and easier to use than the then status quo in the office, SketchUp. And most importantly it got many team members and their children interested in model rocketry which actually fulfills one of the main missions of the model rocketry industry, to stimulate interest in the wider public about science and engineering through this exciting hobby.
 
 \end{contributions}
 
 % The summary environment only requires the summary text.
 \begin{summary}
 
-    	\lipsum[1-4]
+	The main purpose of the report is to summarize and communicate the research and development done on the BLE model rocket project in my work term at Nordic Semiconductor ASA in Trondheim, Norway. This report will communicate the motivation and significance of the project that I had worked on and also record the engineering analysis and design that went into this work. The scope of this work includes the background research done in model rocketry, the different design options considered for the prototype, the construction requirements for launch, and several recommendations for future revisions of the rocket.
+
+	The major points documented in this report are the entire design and prototyping phases of the model rocket and the recorded details where are important to the successful ignition, flight, and recovery of the rocket. Also, sufficient background in model rocketry and BLE electronics is provided in order to give insight to some of the related design decisions related to those fields.
+
+	The major conclusions documented in this report are that using BLE to remotely control the launch of a model rocket is more versatile, convenient, and safe than traditional methods of a wired ignition box; that a BLE chip coupled with power amplifier can easily achieve a communication range of more than 200 meters if the antenna is properly tuned; and that real-time telemetry data from the rocket is an insightful metric into the flight performance of the rocket.
+
+	The major recommendations of this report are that the exhaust end of the rocket should be sufficiently lifted from ground to avoid undesired ignition of adjacent engines in a multistage launch; that the parachute deployment system should be rocket-body-orientation-agnostic; and that flight data should be internally logged into the random access memory (RAM) of the BLE chip as well as communicated over the air in case the rocket travels out of range, so that the data can be read back after retrieval of the rocket.
+
 
 \end{summary}
 
 % The conclusions environment only requires the conclusions text.
 \begin{conclusions}
 
-        \lipsum[1-3]
+
 
 \end{conclusions}
 
-% The recommendations environment only requires the recmmendations text.
+% The recommendations environment only requires the recommendations text.
 \begin{recommendations}
 
         \lipsum[1-3]
@@ -171,31 +189,44 @@
 % automatically be added to the table of contents.
 \section{Introduction}
 
-	\lipsum[1-6]
+	The goal of the project captured in this report is to demonstrate a reference design of a BLE controlled model rocket, which can be launched, recovered, and reused, using Nordic's nRF52832 SoC in order to generate more market interest in utilizing Nordic's products and more importantly to showcase the possibility of deploying BLE in medium range applications in anticipation of the significantly increased range of the next Bluetooth Specification to be released. Despite the fact that, given the time allotted, the end result is a simply a working PoC and far from a polished design ready to be in the market, it is still a highly multidisciplinary and complex project consisting of design considerations in aerodynamics, newtonian mechanics, embedded system design, radio frequency (RF) electronics, and user experience. In addition, recommendations will be provided to fix and improve upon the current design of the rocket to make it more reliable, more performant, and more user friendly.
+
+	In order to understand the design and engineering process behind this report however, a sufficient amount of background knowledge on model rocketry and BLE electronics is required and hence will be provided next.
 
 \section{Background}
 
-	\lipsum[1-2]-
+	The background sections introduces many important concepts in model rocketry and BLE electronics at a high level with enough details to allow the understanding and appreciation of the work reported herein.
 
 % The \subsection{title} command creates a subsection for the above mentioned
 % section. You must specify the title of the section as the commands input. These
 % subsection headers will automatically be added to the table of contents, below the
 % proper section.
-\subsection{A Subsection}
 
-	\lipsum[1]
-
-\subsection{A Second Subsection}
+\subsection{Model Rocketry}
 
 	\lipsum[2]
 
 % The \subsubsection{title} command works exactly like the \section{title} and
 % \subsection{title} commands above.
-\subsubsection{A Subsection in a Subsection}
+\subsubsection{Model Rocketry Physics}
 
 	\lipsum[1]
 
-\subsubsection{Sub-ception}
+\subsubsection{Model Rocketry Simulations}
+
+	\lipsum[1]
+
+\subsubsection{OpenRocket}
+
+	\lipsum[1]
+
+	BWOOOONG!
+
+\subsection{Bluetooth Low Energy}
+
+	\lipsum[1]
+
+\subsubsection{BLE Radio}
 
 	\lipsum[1]
 
@@ -341,9 +372,10 @@ Here's a reference to table \ref{tbl:exampletable}
         \begin{table}
 		\centering
 
-		\begin{tabular}{|c|c|c|} \hline
-			\textbf{Data} & \textbf{Integer} & \textbf{Float} \\ \hline
-			Foo & 1 & 1.1 \\ \hline
+		\begin{tabular}{|c|c|} \hline
+			\textbf{Abbreviation} & \textbf{Definition} \\ \hline
+			BLE & Bluetooth Low Energy \\ \hline
+			SoC & System on Chip \\ \hline
 		\end{tabular}
 
 		\caption{A Table in an Appendix, displaying the correct numbering}
