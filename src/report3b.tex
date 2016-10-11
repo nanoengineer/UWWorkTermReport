@@ -247,9 +247,11 @@
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=10cm]{./images/dissection.png}
-		\caption{Rocket engine dissection \cite{centuri_manual}}
+		\caption{Rocket engine dissection \cite{centuri_manual}. 1. Casing 2. Nozzle 3. Propellant 4. Delay Charge 5. Ejection Charge}
 		\label{fig:dissection}
 	\end{figure}
+
+
 
 \subsubsection{Model Rocketry Physics}
 
@@ -261,10 +263,10 @@
 		% The following are mathematical equations written using the amsmath
 		% package. For more information on writing mathematical equations in
 		% LaTeX, refer to the link under AMSMath in README.md.
-		\frac{(F_{thrust} - F_{drag})}{Mass_{rocket}} $>$ 9.8 \frac{m}{s^2}
+		\frac{(F_{thrust} - F_{drag})}{Mass_{rocket}} > 9.8 \frac{m}{s^2}
 	\end{align}
 
-	Albeit, most engine manufacturers provide a minimum lift-off weight parameter for each engine type to ensure that the user can easily select the correct engine for the rocket. Once the rocket is in the air however, the mathematics become extremely complicated and there are no more simple equations to follow to determine the behaviour of the rocket when it's airbon. 	To calculate the expected apogee of the rocket and travel time is much more involved since the air drag is a very complicated parameter involving several variables, and that the thrust is time dependent ariable which follows a curve specified by the manufacturer, and that the mass is constantly changing as propellant is constantly being ejected out of the rocket, thus a simulation tool (OpenRocket) will be used to calculate the expected flight trajectory.
+	Albeit, most engine manufacturers provide a minimum lift-off weight parameter for each engine type to ensure that the user can easily select the correct engine for the rocket. Once the rocket is in the air however, the mathematics become extremely complicated and there are no more simple equations to follow to determine the behaviour of the rocket when it's airborn. To calculate the expected apogee of the rocket and travel time is much more involved since the air drag is a very complicated parameter involving several variables, and that the thrust is time dependent ariable which follows a curve specified by the manufacturer, and that the mass is constantly changing as propellant is constantly being ejected out of the rocket, thus a simulation tool (OpenRocket) will be used to calculate the expected flight trajectory.
 
 	Outside of the simulation tool, the most important factor to for the user to consider in model rocketry is aerodynamic stability. Aerodynamic stability describes a rocket's ability keep its nose pointed in the same direction throughout its upward flight \cite{estes_rocket_tech}. In more technical lanaguage, it is its ability to resist rotation around its center of gravity (CG) while under perturbing forces from factors such as wind or misaligned motor thrust while flying in the air. The two factors above are the main perturbing forces to consider and they are illustrated in Figure \ref{fig: forces}.
 
@@ -275,7 +277,7 @@
 		\label{fig:forces}
 	\end{figure}
 
-	Any small perturbations will cause a small (less than 5 degrees) angle of attack (AoA) $\alpha$, and if goes uncorrected, this AOT will become larger and larger which will eventually cause the rocket to tumble uncontrollably in the air and crash into the ground, which is extremely dangerous. To prevent this from happening, fins are untilized on model rockets to provide the stabilizing force. As $\alpha$ increases, the surface area of the fins that are exposed to the oncoming airflow parallel to the flight path increases and the resulting drag on the fins will push back and stabilize the rocket by reducing $\alpha$, as shown in Figure \ref{fig:fin_stable}
+	Under perfect conditions with zero wind, the CG and the point of thrust (radial location of the motor) are aligned perfectly at the radial center of the rocket and the rocket would fly straight upwards, provided that it was launched vertically. However, in reality, any small perturbations due to wind or misaligned motor will cause a small (less than 5 degrees) angle of attack (AoA) $\alpha$, and if goes uncorrected, this AOT will become larger and larger which will eventually cause the rocket to tumble uncontrollably in the air and crash into the ground, which is extremely dangerous. To prevent this from happening, fins are untilized on model rockets to provide the stabilizing force. As $\alpha$ increases, the surface area of the fins that are exposed to the oncoming airflow parallel to the flight path increases and the resulting drag on the fins will push back and stabilize the rocket by reducing $\alpha$, as shown in Figure \ref{fig:fin_stable}
 
 	\begin{figure}[!ht]
 		\centering
@@ -284,7 +286,7 @@
 		\label{fig:fin_stable}
 	\end{figure}
 
-	While in the air, the forces perpendicular to the length direction of the rocket can be modeled by a rigid beam on a fulcrum at its CG as shown in Figure \ref{fig:fulcrum}. Another very important point to consider beside the CG is the center of pressure (CP). The center of pressure is the point where all the aerodynamic forces will act through, just like how the gravitational force will act through the center of gravity. And similar to how the location and amount of mass distributed across an object affects the center of gravity, the location and amount of of surface area distributed across an object affects the location of center of pressure.
+	While in the air, the forces perpendicular to the length direction of the rocket can be modeled by a rigid beam on a fulcrum at its CG as shown in Figure \ref{fig:fulcrum}. Another very important point to consider beside the CG is the center of pressure (CP). The center of pressure is the point where all the aerodynamic forces will act through, just like how the gravitational force will act through the center of gravity. And similar to how the location and amount of mass distributed across an object affects the CG, the location and amount of of surface area distributed across an object affects the location of center of pressure.
 
 	\begin{figure}[!ht]
 		\centering
@@ -293,26 +295,20 @@
 		\label{fig:fulcrum}
 	\end{figure}
 
-	The rule of thumb provided by most model rocket makers and experts is that the center of pressure should be at around 1 to 1.5 calibres (a calibre is equal to the diameter of the body tube) aft of the center of mass in order for the fins to have enough torque on the rocket body to stabilize the rocket during flight\cite{estes_rocket_tech} \cite{centuri_manual}. This number is called the stability margin. If it is below 1, then the fins may not have enough torque to overcome the perturbation. However if the margin is too large, then the fins begin to overcompensation for the perturbations and the rocket will exhibit ``weathercocking" which is seen as the the rocket oscillating back and forth during the flight which can significantly effect its apogee.
-	
+	The rule of thumb provided by most model rocket makers and experts is that the CP should be at around 1 to 1.5 calibres (a calibre is equal to the diameter of the body tube) aft of the CG in order for the fins to have enough torque on the rocket body to stabilize the rocket during flight\cite{estes_rocket_tech} \cite{centuri_manual}. This number is called the stability margin. If it is below 1, then the fins may not have enough torque to overcome the perturbation. However if the margin is too large, then the fins begin to overcompensate for the perturbations and the rocket will exhibit ``weathercocking" which is seen as the the rocket oscillating back and forth during the flight which can significantly effect its apogee since energy from the thrust is diminished by the air drag rocking the rocket back and forth.
 
+	In addition to taking care in positioning the CP sufficiently aft of the CM, it is also important to make sure that the CP and CM are aligned in the radial center of the rocket, so that there is no inherent torque on the rocket from airflow coming down from the nose of the rocket even at zero wind conditions.
 
-
-
+	The basic overview of model rocketry mechanics provided above is sufficient to gain an understanding of the design decisions made in the report. Next up will be a brief background for the Bluetooth Low Energy communication technology that will couple the model rocket to a modern smartphone.
 
 \subsection{Bluetooth Low Energy}
+	Bluetooth Low Energy (BLE) is a short range , ultra-low power, 2.4 GHz wireless communication protocol that has seen its rise to dominance thanks to the fast adoption of all major smartphone makers like Apple and Samsung, because of BLE's ability to extend the battery life of mobile devices with its ulta-low power consumption \cite{k_townsend_ble}. Its widespread adoptance with smartphone makers makes it espeically popular for ``smart" gadgets - consumer hardware products that can communicate with and be accessed from a smartphone. Notable examples include activity trackers like Fitbit, thermostats like Nest, and lightbulbs like Philips Hue. Because the protocol is highly standardized and designed to be low-cost and low-complexity, it makes it very easy for hardware developers to implement this protocol and very easy for consumers to use the product via a simple user interface on the smartphone. However, one major limitation to BLE is its range. Usually BLE devices are designed to operate within 50 meters of the user in order to extend battery life by operating the radio at very low power. In addtition, there is limitation in place from the Bluetooth Special Interest Group (SIG), who standardizes the specification for the BLE protocol, on the maximum radio broadcast powe which effectively limits the range to 100 meters \cite{k_townsend_ble}. This limitation significantly reduces BLE's application in mid-range toys like RC cars, quadcopter, and planes which often go upwards of 400 to 500 meters. Fortunately, the upcoming Bluetooth 5.0 specification in early 2017 will quadruple the range of BLE while maintaining similar energy performance and thus immediately making the protocol an attractive option for toy makers.
 
-	\lipsum[1]
-
-\subsubsection{BLE Radio}
-
-	\lipsum[1]
-
-	BWOOOONG!
+	Thusly, in anticipation for the upcoming range increase of BLE and higher interest from toy makers, a model rocket reference design will be created to showcase the possibilities of a mid-range application of BLE.
 
 \section{Design Requirements}
 
-	\lipsum[1-2]
+	
 
 % The \ref{reference} command will create a reference to any \label command.
 Here's a reference to table \ref{tbl:exampletable}
