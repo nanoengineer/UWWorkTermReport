@@ -11,6 +11,7 @@
 \usepackage{lipsum}
 % The amsmath package provides various features to facilitate writing math formulas.
 \usepackage{amsmath}
+\usepackage{subcaption}
 
 
 % LaTeX also supports file splitting between documents. For example, your
@@ -204,23 +205,100 @@
 
 \subsection{Model Rocketry}
 
-	\lipsum[2]
+	Model rocketry is a popular hobby that originated in the late 1950's, coinciding with the dawn of the space age, as many space enthusiasts were inspired to build their own rockets by the sight of the space boosters carrying the first artificial satellite into space \cite{estes_rocket_tech}. It started as an extremely dangerous hobby as many people were attempting to create their own propellants with unstable chemicals that often resulted in injuries of tragedies. It was not until when Estes Industries was founded in 1958 to mass manufacture solid propellant model rocket engines did the hobby become safe and very popular amongst younger aspiring rocketeers and families \cite{estes_rocket_tech}.
+
+	Popular model rockets today are mainly constructed with safe materials such as cardboard, plastic, and balsa wood, with sizes ranging from 1 foot to 6 feet. They are fueled by single-use rocket motors (note that the terms motor and engine can be used exchangeably) manufactured professionally by companies such as Estes. The rockets typically contain a recovery device such as a parachute to enable gentle landing and recovery for future flights and reuse of the rocket. The rocket can be flown again by simply replacing the used motor with a fresh one. Typical entry-level model rocket components are shown in Figure \ref{fig:rocket_comp} below.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/model_rocket_components.png}
+		\caption{Typical model rocket components - without engine \cite{estes_rocket_tech}}
+		\label{fig:rocket_comp}
+	\end{figure}
+
+
+	Typically, a model rocket launch consists of 7 distinct phases: ignition, lift-off, burnout, coasting, apogee, parachute ejection, and soft landing. During ignition, the rocket engine is ignited electrically from a box containing circuits external to the rocket as shown in Figure \ref{fig:ignition_box}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/ignition_box.png}
+		\caption{Ignition Box \cite{estes_rocket_tech}}
+		\label{fig:ignition_box}
+	\end{figure}
+
+	Once the engines are ignited, the rocket will enter the lift-off phase where it accelerates very rapidly off of the launch pad due to the rapid ejection of hot gas (in model rocketry, a launch pad is just a structure that mechanically guides the rocket straight upwards during lift-off). After the rocket leaves the launch pad, it enters the burnout phase where the rest of the propulsion fuel is gradually ejected from the engine and rocket's upward acceleration starts to diminish. At the point where all the propulsion in the engine is exhausted and the provided thrust and therefore upward acceleration becomes zero, the rocket enters the coasting phase, where gravity and air drag begins to slow down the rocket to zero upward velocity. At the point of zero upward velocity, the rocket has reached its apogee, the highest altitude of its flight. Some point after apogee, parachute ejection should take place, preferably as soon as possible after apogee to prevent the rocket from gaining too much downward velocity due to gravity. After parachute ejection, the rocket will eventually enter the last stage of its flight, soft landing. A summative illustration of typical flight phases taken from the Centuri Model Rocket Designers Manual\cite{centuri_manual} is shown in Figure \ref{fig:flight_phase}.
+
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/flight_phase.png}
+		\caption{Model Rocket Flight Phases \cite{centuri_manual}}
+		\label{fig:flight_phase}
+	\end{figure}
+
 
 % The \subsubsection{title} command works exactly like the \section{title} and
 % \subsection{title} commands above.
+\subsubsection{Model Rocketry Engines}
+
+	The engines are the single most important component of any typical model rocket since it is most often responsible for two of the most crucial tasks in rocket flight: provide propulsion and trigger parachute deployment. A visual dissection of a typical model rocket engine is shown in Figure \ref{fig:dissection}. Model rocket engines typically use black powder as solid-fuel to provide thrust to the rocket by rapidly ejecting hot gas out the exhaust end of the engine. After the complete burnout of propulsion material there is a short period of delay charge inside the engine that burns for easier visual tracking but provides no significant thrust to allow the rocket to coast to apogee. Then finally the ejection charge ignites and fills the rocket body tube with hot gas. The sudden increase in pressure in the body tube will pop open the nose cone and push out the parachute assembly. Model rocket engines are categorized with codes indicating their total impulse in newton seconds, average thrust in newtons, and delay charge time in seconds. For model rockets the total impulse range from A to G. A being 0 to 2.5 Ns, and B being 2.6 to 5, with each subsequent letter having twice the max allowed total impulse as previous. The average thrust is simply indicated by a number that is the average thrust in newtons, and the delay charge time is also just a number in the number of seconds.
+	For example a engine with the code C4-3 means it has a total impulse somewhere from 5.1 to 10 Ns, with an average thrust of 4 Newtons and a delay charge time of 3 seconds. All manufacturers of rocket motors will provided datasheets specifying the exact impulse and thrust curve of their engines.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/dissection.png}
+		\caption{Rocket engine dissection \cite{centuri_manual}}
+		\label{fig:dissection}
+	\end{figure}
+
 \subsubsection{Model Rocketry Physics}
 
-	\lipsum[1]
+	The provided overview above of the typical model rocket flight process above sets up the foundation for a general understanding of the sequence of tasks that the BLE model rocket reported in this work must fulfill in order to perform a successful launch. Next it will be very important to provide a background of the physics involved in a successful rocket launch as the mechanical design of the rocket must adhere strictly to the physical guidelines imposed by the laws of aerodynamics and newtonian mechanics in order to ensure a successful flight.
 
-\subsubsection{Model Rocketry Simulations}
+	Like anything that flies, model rokets get airborn by generating enough upward force to overcome gravity and air drag. A model rocket takes flight by utilizing rocket motors which eject gas at high velocities downward out the tail end of the rocket and as a result generating thrust upward (Newton's Second Law). At the most basic level, to overcome gravity, the thrust generated by the motor at lift off must abide by the following equation:
 
-	\lipsum[1]
+	\begin{align}
+		% The following are mathematical equations written using the amsmath
+		% package. For more information on writing mathematical equations in
+		% LaTeX, refer to the link under AMSMath in README.md.
+		\frac{(F_{thrust} - F_{drag})}{Mass_{rocket}} $>$ 9.8 \frac{m}{s^2}
+	\end{align}
 
-\subsubsection{OpenRocket}
+	Albeit, most engine manufacturers provide a minimum lift-off weight parameter for each engine type to ensure that the user can easily select the correct engine for the rocket. Once the rocket is in the air however, the mathematics become extremely complicated and there are no more simple equations to follow to determine the behaviour of the rocket when it's airbon. 	To calculate the expected apogee of the rocket and travel time is much more involved since the air drag is a very complicated parameter involving several variables, and that the thrust is time dependent ariable which follows a curve specified by the manufacturer, and that the mass is constantly changing as propellant is constantly being ejected out of the rocket, thus a simulation tool (OpenRocket) will be used to calculate the expected flight trajectory.
 
-	\lipsum[1]
+	Outside of the simulation tool, the most important factor to for the user to consider in model rocketry is aerodynamic stability. Aerodynamic stability describes a rocket's ability keep its nose pointed in the same direction throughout its upward flight \cite{estes_rocket_tech}. In more technical lanaguage, it is its ability to resist rotation around its center of gravity (CG) while under perturbing forces from factors such as wind or misaligned motor thrust while flying in the air. The two factors above are the main perturbing forces to consider and they are illustrated in Figure \ref{fig: forces}.
 
-	BWOOOONG!
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/forces.png}
+		\caption{Perturbing forces on a model rocket}
+		\label{fig:forces}
+	\end{figure}
+
+	Any small perturbations will cause a small (less than 5 degrees) angle of attack (AoA) $\alpha$, and if goes uncorrected, this AOT will become larger and larger which will eventually cause the rocket to tumble uncontrollably in the air and crash into the ground, which is extremely dangerous. To prevent this from happening, fins are untilized on model rockets to provide the stabilizing force. As $\alpha$ increases, the surface area of the fins that are exposed to the oncoming airflow parallel to the flight path increases and the resulting drag on the fins will push back and stabilize the rocket by reducing $\alpha$, as shown in Figure \ref{fig:fin_stable}
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/fin_stable.png}
+		\caption{How fins on model rockets stabilize it in flight}
+		\label{fig:fin_stable}
+	\end{figure}
+
+	While in the air, the forces perpendicular to the length direction of the rocket can be modeled by a rigid beam on a fulcrum at its CG as shown in Figure \ref{fig:fulcrum}. Another very important point to consider beside the CG is the center of pressure (CP). The center of pressure is the point where all the aerodynamic forces will act through, just like how the gravitational force will act through the center of gravity. And similar to how the location and amount of mass distributed across an object affects the center of gravity, the location and amount of of surface area distributed across an object affects the location of center of pressure.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/fulcrum.png}
+		\caption{Fulcrum model of perturbing forces on a model rocket}
+		\label{fig:fulcrum}
+	\end{figure}
+
+	The rule of thumb provided by most model rocket makers and experts is that the center of pressure should be at around 1 to 1.5 calibres (a calibre is equal to the diameter of the body tube) aft of the center of mass in order for the fins to have enough torque on the rocket body to stabilize the rocket during flight\cite{estes_rocket_tech} \cite{centuri_manual}. This number is called the stability margin. If it is below 1, then the fins may not have enough torque to overcome the perturbation. However if the margin is too large, then the fins begin to overcompensation for the perturbations and the rocket will exhibit ``weathercocking" which is seen as the the rocket oscillating back and forth during the flight which can significantly effect its apogee.
+	
+
+
+
+
 
 \subsection{Bluetooth Low Energy}
 
@@ -232,7 +310,7 @@
 
 	BWOOOONG!
 
-\section{Data}
+\section{Design Requirements}
 
 	\lipsum[1-2]
 
@@ -301,7 +379,7 @@ Here's a reference to table \ref{tbl:exampletable}
 	\begin{figure}[!ht]
 		\centering
 		\label{fig:stock_computer}
-		\includegraphics[width=5cm]{./stock-image.jpg}
+		\includegraphics[width=5cm]{./images/stock-image.jpg}
 		\caption{A stock computer, I just wanted a picture here}
 	\end{figure}
 
@@ -315,7 +393,7 @@ Here's a reference to table \ref{tbl:exampletable}
 \section{Recommendations}
 
 	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like
-    	\cite{schweiger_principles_2001} will lead to a better quality of work.
+    	\cite{k_townsend_ble} will lead to a better quality of work.
 
 \end{body}
 
@@ -352,13 +430,13 @@ Here's a reference to table \ref{tbl:exampletable}
 	% This figure shows proper appendix formatting.
 	\begin{figure}[!ht]
 		\centering
-		\includegraphics[width=5cm]{./stock-image.jpg}
+		\includegraphics[width=5cm]{./images/stock-image.jpg}
 		\caption{It's back!}
 	\end{figure}
 
 	\begin{figure}[!ht]
 		\centering
-		\includegraphics[width=5cm]{./stock-image.jpg}
+		\includegraphics[width=5cm]{./images/stock-image.jpg}
 		\caption{Testing Number}
 	\end{figure}
 
