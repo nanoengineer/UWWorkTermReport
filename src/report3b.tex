@@ -217,7 +217,7 @@
 	\end{figure}
 
 
-	Typically, a model rocket launch consists of 7 distinct phases: ignition, lift-off, burnout, coasting, apogee, parachute ejection, and soft landing. During ignition, the rocket engine is ignited electrically from a box containing circuits external to the rocket as shown in Figure \ref{fig:ignition_box}.
+	Typically, a model rocket launch consists of 7 distinct phases: ignition, lift-off, burnout, coasting, apogee, parachute ejection, and soft landing. During ignition, the rocket engine is ignited electrically by a manual switch from a box containing circuits external to the rocket as shown in Figure \ref{fig:ignition_box}.
 
 	\begin{figure}[!ht]
 		\centering
@@ -225,6 +225,17 @@
 		\caption{Ignition Box \cite{estes_rocket_tech}}
 		\label{fig:ignition_box}
 	\end{figure}
+
+	These boxes work by shorting a battery across the terminals of a motor igniter, which is just a piece of bent wire with some heat sensitive pyrotechnic material at the tip that is inserted into the rocket motor that ignites when heated due to joule heating by the high current passing through the igniter. When the igniter ignites, the combusted pyrotechnic material triggers ignition of the motor propellant and also breaks continuity of the igniter and current should automatically stop flowing. The use of the ignition box is meant to create a safe distance to launch the rocket by using long launch wires with micro clips at the end to attach to the motor igniters. Figure \ref{fig:igniter} shows a schematic of how a motor igniter is installed into the rocket motor.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/igniter.png}
+		\caption{Rocket Motor Igniter \cite{estes_rocket_tech}}
+		\label{fig:igniter}
+	\end{figure}
+
+	However, if a model rocket has embedded electronics inside that can be controlled via a smartphone, then the ignition box can become obsolete and ignition can be performed completely wirelessly from a much longer distance away. This is one of the first design wins for BLE in model rocketry.
 
 	Once the engines are ignited, the rocket will enter the lift-off phase where it accelerates very rapidly off of the launch pad due to the rapid ejection of hot gas (in model rocketry, a launch pad is just a structure that mechanically guides the rocket straight upwards during lift-off). After the rocket leaves the launch pad, it enters the burnout phase where the rest of the propulsion fuel is gradually ejected from the engine and rocket's upward acceleration starts to diminish. At the point where all the propulsion in the engine is exhausted and the provided thrust and therefore upward acceleration becomes zero, the rocket enters the coasting phase, where gravity and air drag begins to slow down the rocket to zero upward velocity. At the point of zero upward velocity, the rocket has reached its apogee, the highest altitude of its flight. Some point after apogee, parachute ejection should take place, preferably as soon as possible after apogee to prevent the rocket from gaining too much downward velocity due to gravity. After parachute ejection, the rocket will eventually enter the last stage of its flight, soft landing. A summative illustration of typical flight phases taken from the Centuri Model Rocket Designers Manual\cite{centuri_manual} is shown in Figure \ref{fig:flight_phase}.
 
@@ -236,12 +247,11 @@
 		\label{fig:flight_phase}
 	\end{figure}
 
-
 % The \subsubsection{title} command works exactly like the \section{title} and
 % \subsection{title} commands above.
 \subsubsection{Model Rocketry Engines}
 
-	The engines are the single most important component of any typical model rocket since it is most often responsible for two of the most crucial tasks in rocket flight: provide propulsion and trigger parachute deployment. A visual dissection of a typical model rocket engine is shown in Figure \ref{fig:dissection}. Model rocket engines typically use black powder as solid-fuel to provide thrust to the rocket by rapidly ejecting hot gas out the exhaust end of the engine. After the complete burnout of propulsion material there is a short period of delay charge inside the engine that burns for easier visual tracking but provides no significant thrust to allow the rocket to coast to apogee. Then finally the ejection charge ignites and fills the rocket body tube with hot gas. The sudden increase in pressure in the body tube will pop open the nose cone and push out the parachute assembly. Model rocket engines are categorized with codes indicating their total impulse in newton seconds, average thrust in newtons, and delay charge time in seconds. For model rockets the total impulse range from A to G. A being 0 to 2.5 Ns, and B being 2.6 to 5, with each subsequent letter having twice the max allowed total impulse as previous. The average thrust is simply indicated by a number that is the average thrust in newtons, and the delay charge time is also just a number in the number of seconds.
+	The engines are the single most important component of any typical model rocket since it is most often responsible for two of the most crucial tasks in rocket flight: provide propulsion and trigger parachute deployment. A visual dissection of a typical model rocket engine is shown in Figure \ref{fig:dissection}. Model rocket engines typically use black powder as solid-fuel to provide thrust to the rocket by rapidly ejecting hot gas out the exhaust end of the engine. After the complete burnout of propulsion material there is a short period of delay charge inside the engine that burns for easier visual tracking but provides no significant thrust to allow the rocket to coast to apogee. Then finally the ejection charge ignites and fills the rocket body tube with hot gas. The sudden increase in pressure in the body tube will pop open the nose cone and push out the parachute assembly. Model rocket engines are categorized with codes indicating their total impulse in newton seconds, average thrust in newtons, and delay charge time in seconds. For model rockets the total impulse range from A to G. This is called the class of the motor. Class A being 0 to 2.5 Ns, and B being 2.6 to 5, with each subsequent class having twice the max allowed total impulse as previous. The average thrust is simply indicated by a number that is the average thrust in newtons, and the delay charge time is also just a number in the number of seconds.
 	For example a engine with the code C4-3 means it has a total impulse somewhere from 5.1 to 10 Ns, with an average thrust of 4 Newtons and a delay charge time of 3 seconds. All manufacturers of rocket motors will provided datasheets specifying the exact impulse and thrust curve of their engines.
 
 	\begin{figure}[!ht]
@@ -251,7 +261,7 @@
 		\label{fig:dissection}
 	\end{figure}
 
-
+	The delay charge is designed to allow the rocket to coast in unpowered flight to its apogee before the parachute is ejected with the ejection charge. However each rocket flies differently and the amount of delay charge they need is different depending on their mass and drag. Motor manufacturers make several delay charges available for each motor class. However, that doesn't give the curious users fine grained control for optimization of flight performance. This is where BLE model rockets have another design win over traditional ones: by embedding a BLE module inside the rocket, the parachute can be ejected remotely by command or via intelligent algorithms on-board with altimeter data to determine when the apogee was reached, so it does not have to rely on the limited charge choices made available by the motor manufacturers.
 
 \subsubsection{Model Rocketry Physics}
 
@@ -268,7 +278,7 @@
 
 	Albeit, most engine manufacturers provide a minimum lift-off weight parameter for each engine type to ensure that the user can easily select the correct engine for the rocket. Once the rocket is in the air however, the mathematics become extremely complicated and there are no more simple equations to follow to determine the behaviour of the rocket when it's airborn. To calculate the expected apogee of the rocket and travel time is much more involved since the air drag is a very complicated parameter involving several variables, and that the thrust is time dependent ariable which follows a curve specified by the manufacturer, and that the mass is constantly changing as propellant is constantly being ejected out of the rocket, thus a simulation tool (OpenRocket) will be used to calculate the expected flight trajectory.
 
-	Outside of the simulation tool, the most important factor to for the user to consider in model rocketry is aerodynamic stability. Aerodynamic stability describes a rocket's ability keep its nose pointed in the same direction throughout its upward flight \cite{estes_rocket_tech}. In more technical lanaguage, it is its ability to resist rotation around its center of gravity (CG) while under perturbing forces from factors such as wind or misaligned motor thrust while flying in the air. The two factors above are the main perturbing forces to consider and they are illustrated in Figure \ref{fig: forces}.
+	Outside of the simulation tool, the most important factor to for the user to consider in model rocketry is aerodynamic stability. Aerodynamic stability describes a rocket's ability keep its nose pointed in the same direction throughout its upward flight \cite{estes_rocket_tech}. In more technical lanaguage, it is its ability to resist rotation around its center of gravity (CG) while under perturbing forces from factors such as wind or misaligned motor thrust while flying in the air. The two factors above are the main perturbing forces to consider and they are illustrated in Figure \ref{fig:forces}.
 
 	\begin{figure}[!ht]
 		\centering
@@ -299,16 +309,41 @@
 
 	In addition to taking care in positioning the CP sufficiently aft of the CM, it is also important to make sure that the CP and CM are aligned in the radial center of the rocket, so that there is no inherent torque on the rocket from airflow coming down from the nose of the rocket even at zero wind conditions.
 
-	The basic overview of model rocketry mechanics provided above is sufficient to gain an understanding of the design decisions made in the report. Next up will be a brief background for the Bluetooth Low Energy communication technology that will couple the model rocket to a modern smartphone.
+	The basic overview of model rocketry mechanics provided above is sufficient to gain an understanding of the design decisions made in the report. Next up will be a brief introduction on model rocket telemetry, the remote collection  of data from the rocket that describes the its flight.
+
+	\subsubsection{Model Rocket Telemetry}
+	Rocket telemetry is at the heart of what makes many rocket enthusiasts keep coming back to launch their rockets over and over again. By being able to remotely retrieve flight data such as altitude, velocity, and acceleration from the rocket, rocket enthusiasts can get insight into their rocket's performance so that they can iterate and improve on their design. The most basic model rockets have no electronics inside, and the only way to approximate how high it went is use some clunky hand tools and trigonometery. Many technically inclined rocketeers and some companies build custom telemetry modules with altimeters and accelerometers on-board and a custom megahertz radio (very long range and simpler circuit design at lower frequecies compared to 2.4 GHz) for communication with a custom base station that collects the data from the rocket. The issue with custom telemetry modules is that it is not interoperable with other devices. In other words, to communicate with the telemetry module, one would need a custom base station with a custom radio on the same frequency as the one in the rocket, as opposed to just using a ubiquitous smartphone with a BLE chip already inside and a nice user interface in the form of an app. So to simplify the user experience and make telemetry more robust, a standardized and ubiquitous protocol such as BLE can be implemented for mid-ranged rocket telemetry.
 
 \subsection{Bluetooth Low Energy}
-	Bluetooth Low Energy (BLE) is a short range , ultra-low power, 2.4 GHz wireless communication protocol that has seen its rise to dominance thanks to the fast adoption of all major smartphone makers like Apple and Samsung, because of BLE's ability to extend the battery life of mobile devices with its ulta-low power consumption \cite{k_townsend_ble}. Its widespread adoptance with smartphone makers makes it espeically popular for ``smart" gadgets - consumer hardware products that can communicate with and be accessed from a smartphone. Notable examples include activity trackers like Fitbit, thermostats like Nest, and lightbulbs like Philips Hue. Because the protocol is highly standardized and designed to be low-cost and low-complexity, it makes it very easy for hardware developers to implement this protocol and very easy for consumers to use the product via a simple user interface on the smartphone. However, one major limitation to BLE is its range. Usually BLE devices are designed to operate within 50 meters of the user in order to extend battery life by operating the radio at very low power. In addtition, there is limitation in place from the Bluetooth Special Interest Group (SIG), who standardizes the specification for the BLE protocol, on the maximum radio broadcast powe which effectively limits the range to 100 meters \cite{k_townsend_ble}. This limitation significantly reduces BLE's application in mid-range toys like RC cars, quadcopter, and planes which often go upwards of 400 to 500 meters. Fortunately, the upcoming Bluetooth 5.0 specification in early 2017 will quadruple the range of BLE while maintaining similar energy performance and thus immediately making the protocol an attractive option for toy makers.
+	Bluetooth Low Energy (BLE) is a short range , ultra-low power, 2.4 GHz wireless communication protocol that has seen its rise to dominance thanks to the fast adoption of all major smartphone makers like Apple and Samsung, because of BLE's ability to extend the battery life of mobile devices with its ulta-low power consumption \cite{k_townsend_ble}. Its widespread adoptance with smartphone makers makes it espeically popular for ``smart" gadgets - consumer hardware products that can communicate with and be accessed from a smartphone. Notable examples include activity trackers like Fitbit, thermostats like Nest, and lightbulbs like Philips Hue. Because the protocol is highly standardized and designed to be low-cost and low-complexity, it makes it very easy for hardware developers to implement this protocol and very easy for consumers to use the product via a simple user interface on the smartphone. However, one major limitation to BLE is its range. Usually BLE devices are designed to operate within 50 meters of the user in order to extend battery life by operating the radio at very low power. In addtition, there is limitation in place from the Bluetooth Special Interest Group (SIG), who standardizes the specification for the BLE protocol, on the maximum radio broadcast powe which effectively limits the range to 100 meters \cite{k_townsend_ble}. This limitation significantly reduces BLE's application in mid-range toys like RC cars, quadcopter, and planes which often go upwards of 400 to 500 meters. Fortunately, the upcoming Bluetooth 5.0 specification in early 2017 will quadruple the range of BLE to roughly 400 meters while maintaining similar energy performance and thus immediately making the protocol an attractive option for toy makers.
 
 	Thusly, in anticipation for the upcoming range increase of BLE and higher interest from toy makers, a model rocket reference design will be created to showcase the possibilities of a mid-range application of BLE.
 
 \section{Design Requirements}
 
+	The design requirements for this BLE model rocket reference design are basic and straight forward since it is a proof of concept (under limited development time of 3.5 months) to showcase the usage of BLE in mid-ranged toys such as a rocket, but it should have the features that take advantage of BLE to simply the user experience of launching rockets and yet make it more engaging. The design requirements for this PoC are the following:
+
+	\begin{enumerate}
+	\item Mechanical structure is constructed via 3D Printing
+  \item Remote ignition of the rocket from the smartphone without an ignition box
+	\item Maintain BLE communication with the rocket for at least 200 meters
+	\item Flight minimum altitude of 150 meters (outside of typical BLE range)
+	\item Communicate real-time altitude data to the smartphone
+	\item Parachute can be ejected via a timer that can be configured from the smartphone before flight
+	\item Parachute can be ejected via a remote command from the smartphone during flight
+	\item Rocket can be recovered and reused multiple times
+	\end{enumerate}
+
+	Each item on the list can be broken down into very specific functional requirements in order to achieve those goals, and the majority of the rest of the report will be used to dissect how each design requirement is met both qualitatively and quantitatively.
+
+	\subsection{Mechanical design is realized via 3D Printing}
+	3D Printing is a rapid protoyping method to create mechanical structures orders of magnitude faster than machine shops and plastics molders and it is perfect for prototyping PoCs. This design requirement allows very quick iterations and experimentations of parts and assemblies within 2 days and is essential to completing this project on time. The mechanical design is done on a cloud-based Computer Aided Drawing (CAD) tool called OnShape and the file can be outputed directly to a 3D printer for printing. This subsection will discuss a few notable mechanical designs that were significant to the success of this project.
+
 	
+
+
+
+
 
 % The \ref{reference} command will create a reference to any \label command.
 Here's a reference to table \ref{tbl:exampletable}
