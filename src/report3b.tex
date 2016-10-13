@@ -226,7 +226,7 @@
 		\label{fig:ignition_box}
 	\end{figure}
 
-	These boxes work by shorting a battery across the terminals of a motor igniter, which is just a piece of bent wire with some heat sensitive pyrotechnic material at the tip that is inserted into the rocket motor that ignites when heated due to joule heating by the high current passing through the igniter. When the igniter ignites, the combusted pyrotechnic material triggers ignition of the motor propellant and also breaks continuity of the igniter and current should automatically stop flowing. The use of the ignition box is meant to create a safe distance to launch the rocket by using long launch wires with micro clips at the end to attach to the motor igniters. Figure \ref{fig:igniter} shows a schematic of how a motor igniter is installed into the rocket motor.
+	These boxes work by shorting a alkaline battery across the terminals of a motor igniter, which is just a piece of bent wire with some heat sensitive pyrotechnic material at the tip that is inserted into the rocket motor that ignites when heated due to joule heating by the high current passing through the igniter. When the igniter ignites, the combusted pyrotechnic material triggers ignition of the motor propellant and also breaks continuity of the igniter and current should automatically stop flowing. The use of the ignition box is meant to create a safe distance to launch the rocket by using long launch wires with micro clips at the end to attach to the motor igniters. Figure \ref{fig:igniter} shows a schematic of how a motor igniter is installed into the rocket motor.
 
 	\begin{figure}[!ht]
 		\centering
@@ -315,6 +315,7 @@
 	Rocket telemetry is at the heart of what makes many rocket enthusiasts keep coming back to launch their rockets over and over again. By being able to remotely retrieve flight data such as altitude, velocity, and acceleration from the rocket, rocket enthusiasts can get insight into their rocket's performance so that they can iterate and improve on their design. The most basic model rockets have no electronics inside, and the only way to approximate how high it went is use some clunky hand tools and trigonometery. Many technically inclined rocketeers and some companies build custom telemetry modules with altimeters and accelerometers on-board and a custom megahertz radio (very long range and simpler circuit design at lower frequecies compared to 2.4 GHz) for communication with a custom base station that collects the data from the rocket. The issue with custom telemetry modules is that it is not interoperable with other devices. In other words, to communicate with the telemetry module, one would need a custom base station with a custom radio on the same frequency as the one in the rocket, as opposed to just using a ubiquitous smartphone with a BLE chip already inside and a nice user interface in the form of an app. So to simplify the user experience and make telemetry more robust, a standardized and ubiquitous protocol such as BLE can be implemented for mid-ranged rocket telemetry.
 
 \subsection{Bluetooth Low Energy}
+
 	Bluetooth Low Energy (BLE) is a short range , ultra-low power, 2.4 GHz wireless communication protocol that has seen its rise to dominance thanks to the fast adoption of all major smartphone makers like Apple and Samsung, because of BLE's ability to extend the battery life of mobile devices with its ulta-low power consumption \cite{k_townsend_ble}. Its widespread adoptance with smartphone makers makes it espeically popular for ``smart" gadgets - consumer hardware products that can communicate with and be accessed from a smartphone. Notable examples include activity trackers like Fitbit, thermostats like Nest, and lightbulbs like Philips Hue. Because the protocol is highly standardized and designed to be low-cost and low-complexity, it makes it very easy for hardware developers to implement this protocol and very easy for consumers to use the product via a simple user interface on the smartphone. However, one major limitation to BLE is its range. Usually BLE devices are designed to operate within 50 meters of the user in order to extend battery life by operating the radio at very low power. In addtition, there is limitation in place from the Bluetooth Special Interest Group (SIG), who standardizes the specification for the BLE protocol, on the maximum radio broadcast powe which effectively limits the range to 100 meters \cite{k_townsend_ble}. This limitation significantly reduces BLE's application in mid-range toys like RC cars, quadcopter, and planes which often go upwards of 400 to 500 meters. Fortunately, the upcoming Bluetooth 5.0 specification in early 2017 will quadruple the range of BLE to roughly 400 meters while maintaining similar energy performance and thus immediately making the protocol an attractive option for toy makers.
 
 	Thusly, in anticipation for the upcoming range increase of BLE and higher interest from toy makers, a model rocket reference design will be created to showcase the possibilities of a mid-range application of BLE.
@@ -324,29 +325,80 @@
 	The design requirements for this BLE model rocket reference design are basic and straight forward since it is a proof of concept (under limited development time of 3.5 months) to showcase the usage of BLE in mid-ranged toys such as a rocket, but it should have the features that take advantage of BLE to simply the user experience of launching rockets and yet make it more engaging. The design requirements for this PoC are the following:
 
 	\begin{enumerate}
-	\item Mechanical structure is constructed via 3D Printing
-  \item Remote ignition of the rocket from the smartphone without an ignition box
+	\item Use the nRF52832 SoC as the microcontroller + BLE Radio
+  \item Remote ignition of the rocket from a smartphone without an ignition box
 	\item Maintain BLE communication with the rocket for at least 200 meters
 	\item Flight minimum altitude of 150 meters (outside of typical BLE range)
 	\item Communicate real-time altitude data to the smartphone
-	\item Parachute can be ejected via a timer that can be configured from the smartphone before flight
-	\item Parachute can be ejected via a remote command from the smartphone during flight
-	\item Rocket can be recovered and reused multiple times
+	\item Rocket can deploy a parachute to be recovered and reused multiple times
 	\end{enumerate}
 
-	Each item on the list can be broken down into very specific functional requirements in order to achieve those goals, and the majority of the rest of the report will be used to dissect how each design requirement is met both qualitatively and quantitatively.
+	Besides the first point, each item on the list can be broken down into very specific functional requirements in order to achieve those goals, and the majority of the rest of the report will be used to dissect how each design requirement is met both qualitatively and quantitatively. And ultimately data from the launch test will indicate how well these design requirements were met in the actual rocket launch context.
 
-	\subsection{Mechanical design is realized via 3D Printing}
-	3D Printing is a rapid protoyping method to create mechanical structures orders of magnitude faster than machine shops and plastics molders and it is perfect for prototyping PoCs. This design requirement allows very quick iterations and experimentations of parts and assemblies within 2 days and is essential to completing this project on time. The mechanical design is done on a cloud-based Computer Aided Drawing (CAD) tool called OnShape and the file can be outputed directly to a 3D printer for printing. This subsection will discuss a few notable mechanical designs that were significant to the success of this project.
+	\subsection{Remote Ignition of the Rocket From a Smartphone Without an Ignition Box}
+	As mentioned in the background, one of the most important design wins of a BLE rocket over a traditional rocket is that it can be ignited and launched wirelessly from a smartphone without being restricted to the launch wire length of the igntion box. Not only is this safer it is also much more convenient.
 
-	
+	In order to achieve this, an ignition circuit must be designed and implemented onto a printed circuit board (PCB) along with a BLE chip so that commands received from the smartphone can trigger actions on the ignition circuit. The main task of the ignition circuit on the PCB is to deliver enough power to the igniters so they heat up sufficiently and ignite on command.
 
+	The initial design was to use same concept as a typical ignition box but with some modifications for digital circuitry. First of all, instead of a manual switch to connect the battery to the igniter, a high power transistor controlled by the BLE chip is used instead. Secondly, a lithium ion rechargeable battery will be used over akaline because it is much lighter and more convenient to reuse. Because there are no detailed specifications on the power required to ignite the igniters provided by the manufacturers, a lab power supply was used to determine that the minimum power needed is roughly 3 volts at 1 amp. Figure \ref{fig:batt_ign} shows a schematic of the initial ignition circuit prototype.
 
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/batt_ign.png}
+		\caption{Schematic of first ignition circuit prototype}
+		\label{fig:batt_ign}
+	\end{figure}
 
+	Although it was proven that ignition is possible, an analysis with the oscilloscope showed that there is a significant voltage drop on the lithium battery during ignition due to a significant amount of current rushing out of the battery and its internal resistance lowering the output voltage, as seen in Figure \ref{fig:via_battery}
 
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/via_battery.png}
+		\caption{Oscilloscope image of voltage drop across the battery during ignition of 2 igniters}
+		\label{fig:via_battery}
+	\end{figure}
+
+	The green trace is the battery voltage and the yellow trace is the gate voltage of transitor used to control the ignition. It can be seen from the cursor values that the battery voltage dropped from 4.075 to 3.775 volts during ignition. Since almost all lithium ion batteries can only operate between 3.7 and 4.2 volts (built-in protection circuitry will automatically disconnect the cells if outside those limits), a drop of 300 mV is quite dangerous as non-fully charged battery can risk dropping below its operating voltage and cause a loss of power to the rest of the PCB.
+
+	The solution to this problem is to add a large enough capacitor in parallel with the battery that can be charged up at a slower rate before ignition and discharged rapidly to provide enough power to the igniters. The resistor in series with the capacitor limits the maximum current draw out of the battery (when the capacitor is at 0 V) so that the voltage of the battery does not drop dramatically during ignition. Figure \ref{fig:cap_ign} shows theschematic of the  improved circuit.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/cap_ign.png}
+		\caption{Schematic of the improved ignition circuit prototype with the supercapacitor}
+		\label{fig:cap_ign}
+	\end{figure}
+
+	The results of this improvement can be seen in Figure \ref{fig:via_supercap_fresh}, where the yellow trace is the battery voltage, pink is the gate voltage of the transistor, and green is the voltage of a 5 V, 3 F supercapacitor. It is clear that here is no significant drop in battery voltage as all the power delivered to the igniters are through the capacitor. The 3 F supercapacitor was chosen because it has an extremely low internal resistance of 50 m$\Omega$ which means it can deliver instantaneously up to 100 A and also because it has about the same mass as the battery so it made it easier to balance the CG of the PCB \cite{supercap_doc}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/via_supercap_fresh.png}
+		\caption{Oscilloscope image of voltage drop across the battery and supercapacitor during ignition of 2 igniters}
+		\label{fig:via_supercap_fresh}
+	\end{figure}
+
+	Since the capacitor will take some time to charge up from an empty state before it is ready to ignite the engines, there must be a way for the user to monitor the voltage on the capacitor to know when it is ready to launch. The analog to digital converter (ADC) on the BLE chip can be used convert the capacitor voltage into data that can be sent to the smartphone. However, its max sampling range is 0 to the power supply voltage of the chip (3.3 V in this case) \cite{nrf52_doc}. Thus, a voltage divider of two 1 M$\Omega$ resistors is placed in parallel with the capacitor so that half of the capacitor voltage (max 2.5 V, within sampling range) can be sampled by the ADC, and mapped back to the full voltage in firmware before the data is sent.
+
+	Another transistor is also added in the circuit to enable a safe way to discharge the capacitor via a resistor to ground. Figure \ref{fig:final_ign} is the schematic of the final ignition circuit in the rocket.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/final_ign.png}
+		\caption{Final schematic of the ignition circuit in the rocket}
+		\label{fig:final_ign}
+	\end{figure}
+
+	Q1 and Q2 are the power transistors connected to the BLE chip for controlling 2 ignition channels. C28 is the supercapacitor, R8 is the rate-limiting charging resistor. R10 and R11 is the voltage divider with VSC_SENSE as the node connected to the ADC of the chip, and R9 and Q1 are the safe discharge circuitry.
+
+	After the circuit design was complete, methods were evaluated for routing wires physically from the PCB to the bottom of the rocket where the rocket engines and igniters are located. 
+
+	\subsection{Maintain BLE communication with the rocket for at least 200 meters}
+
+	In order to achieve an extended BLE range with the rocket with the current Bluetooth Specification, an external power amplifier (PA) and low noise amplifier (LNA) must be added to the antenna which transmits and receives BLE data packets. This will mimic the extended range of future BLE at the cost of very high power consumption. The PA is used to boost the outgoing signal strength from the rocket, and the LNA is used to boost the signal strength coming into the rocket from the smartphone. There are several available integrated circuits (IC) on the market that perform those two functionalities on a single chip. The chosen IC was Skyworks's SKY66112-11 2.4 GHz RF Front-End Module with 20 dB of maximum gain, as Nordic has a very good working relationship with them and that they are soon releasing a reference design with the nRF52 chip specifically. To verify the performance of this IC in context of the nRF52, a network analyzer was used to determine the the output signal strength of the amplifier with the nRF52 chip's RF output as the input signal to the amplifier.
 
 % The \ref{reference} command will create a reference to any \label command.
-Here's a reference to table \ref{tbl:exampletable}
+	It can be seen in Table \ref{tbl:amp_table} that there is some non-linearity of the gain as the input drops but this this analysis clearly shows which input range should be chose to operated within to achieve the best amplified output. The output power of the amplifier is around 20.5 dBm at 0, 3, or 4 dBm input hence the BLE chip should be configured in firmware to operate at any of those values.
 
 % The table environment is used to create a table. Note that by calling this environment,
 % this table will automatically be added to the list of tables.
@@ -358,45 +410,45 @@ Here's a reference to table \ref{tbl:exampletable}
 	% The tabular environment creates the table itself. For more information
 	% and options when using this environment, refer to the link under Tables provided
 	% in README.md.
-	\begin{tabular}{|c|c|c|} \hline
-		title & number & decimal \\ \hline
-		heading & 1 & 1.7 \\ \hline
-		another heading & 2 & 3.4 \\ \hline
+	\begin{tabular}{|c|c|c|c|} \hline
+		Amplifer Input (dBm) & Gain(dB) & Amplifer Output (dBm) \\ \hline
+		4 & 16.56 & 20.56 \\ \hline
+		3  & 17.73 & 20.73 \\ \hline
+		0  & 20.25 & 20.25 \\ \hline
+		-4  & 22.16 & 18.16 \\ \hline
+		-8  & 19.05 & 11.05 \\ \hline
 	\end{tabular}
 	% The \caption{title} command adds a caption to your table. This caption will then
 	% be used in the list of tables.
-	\caption{A table demonstrating \LaTeX \, formatting}
+	\caption{SKY66112-11 Gain and Output with nRF52 Signal on Input}
 
 	% The \label{title} command creates a reference that can be used to refer to this
 	% table in the document. An example of this can be found on line 174.
-	\label{tbl:exampletable}
+	\label{tbl:amp_table}
 
 \end{table}
 
-\section{Math}
+	Under zero amplification conditions, the maximum range to maintain the BLE connection between an nRF52 development board and a Samsung Galaxy S5 was tested to be 134 m while the nRF52's radio operated at 4 dBm. Hence the assumption is that at 20 dBm it can very well more than double the range to be more than 200 m even given all the various loss factors.
 
-	\lipsum[1]
+\subsection{Flight minimum altitude of 150 meters (outside of typical BLE range)}
 
-\subsection{The Bloch Equations}
+	To design the rocket for minimum flight altitude requires the use of model rocket simulation tools that take into account aerodynamics and solves differential equations of all forces on a rocket at each discrete time step during the flight of the rocket. OpenRocket, an open source and cross-platform model rocket simulation software was used to simulate the flight characteristics of the model rocket. In order to accurately predict the flight charactertistics, the exact geometry of the rocket and its material is inputted into the software along with the choice of engines. In this case, the geometries of the rocket body were imported from the Computer Aided Drawing (CAD) software used to design the mechanical structure of the rocket. The weight and size of the PCB and the parachute were also modelled into the simulation. The main material of the rocket body was ABS (density 1.05 g/cm\textsuperscript{3}) as that is the available material from the lab's 3D printer. And the enginees selected were 2 D9-P engines. The P designation means that it is a ``Plugged" engine with no ejection charge. The reason for this will be explained in a future section. As shown in Figure \ref{fig:openrocket}, OpenRocket showns that the rocket's CP is well aft of the CG with a stability margin of 1.47 calibers. This means that the rocket will be aerodynamically stable. Also it predicts an apogee of 226 m which is well above the design requirement of 150 meters.
 
-	% The align environment is an important environment when writing out multiple
-	% mathematical equations. It is used when vertical alignment is desired. Usually
-	% binary relations, such as equal signs, are aligned.
-	\begin{align}
-		% The following are mathematical equations written using the amsmath
-		% package. For more information on writing mathematical equations in
-		% LaTeX, refer to the link under AMSMath in README.md.
-		\frac{d\, M_x(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_x - \frac{M_x(t)}{T_2} \\
-		\frac{d\, M_y(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_y - \frac{M_y(t)}{T_2} \\
-		\frac{d\, M_z(t)}{dt} &= \gamma(\mathbf{M}(t) \times \mathbf{B}(t))_z - \frac{M_z(t) - M_0}{T_1}
-	\end{align}
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=14cm]{./images/openrocket.png}
+		\caption{OpenRocket Simulation View}
+		\label{fig:openrocket}
+	\end{figure}
 
-\subsection{The Schrodinger Equation}
+	One of the main geometric design constraints for the mechanical design was that the 3D printer only has a print space of 12 x 12 x 12 cm which means that the fins can only be 12 cm long and wide maximum. Another design constraint was that the body tube should have just enough space for 4 engines in order to have the capability for multi-stage launches (ignite another set of engines after the first set during the initial launch has burnt out). With these two constraints in mind, the geometric definitions were built up from there and adjusted in simulation over several iterations to have a stability margin between the recommended 1 to 1.5 calibers and an apogee of above 150 meters.
 
-	% The equation environment is used when only one equation needs to be written.
-	\begin{equation}
-		i\hbar \frac{\partial \, \Psi}{\partial t} = \hat{H}\Psi
-	\end{equation}
+	\subsection{Communicate real-time altitude data to the smartphone}
+		Altitude data telemetry can be enabled by having an altimeter onboard the PCB that communicates with the BLE chip which in turn communicated with the smartphone on the ground. The selected altimeter was the MPL3115A2 from Freescale since it was currently being used for another project in the group so the necessary firmware drivers were already developed and the altimeter has already been proven to work well.
+
+	\subsection{Rocket can deploy a parachute to be recovered and reused multiple times}
+
+
 
 \section{Graphics}
 
