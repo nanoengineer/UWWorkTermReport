@@ -12,6 +12,7 @@
 % The amsmath package provides various features to facilitate writing math formulas.
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage{subfig}
 
 
 % LaTeX also supports file splitting between documents. For example, your
@@ -330,7 +331,7 @@
 	\item Maintain BLE communication with the rocket for at least 200 meters
 	\item Flight minimum altitude of 150 meters (outside of typical BLE range)
 	\item Communicate real-time altitude data to the smartphone
-	\item Rocket can deploy a parachute to be recovered and reused multiple times
+	\item Rocket can electronically deploy a parachute to be recovered and reused multiple times
 	\end{enumerate}
 
 	Besides the first point, each item on the list can be broken down into very specific functional requirements in order to achieve those goals, and the majority of the rest of the report will be used to dissect how each design requirement is met both qualitatively and quantitatively. And ultimately data from the launch test will indicate how well these design requirements were met in the actual rocket launch context.
@@ -389,9 +390,18 @@
 		\label{fig:final_ign}
 	\end{figure}
 
-	Q1 and Q2 are the power transistors connected to the BLE chip for controlling 2 ignition channels. C28 is the supercapacitor, R8 is the rate-limiting charging resistor. R10 and R11 is the voltage divider with VSC_SENSE as the node connected to the ADC of the chip, and R9 and Q1 are the safe discharge circuitry.
+	Q1 and Q2 are the power transistors connected to the BLE chip for controlling 2 ignition channels. C28 is the supercapacitor, R8 is the rate-limiting charging resistor that limits the maximum current coming from the power supply to be 0.8 A. R10 and R11 are the voltage divider with VSC_SENSE as the node connected to the ADC of the chip, and R9 and Q1 are the safe discharge circuitry.
 
-	After the circuit design was complete, methods were evaluated for routing wires physically from the PCB to the bottom of the rocket where the rocket engines and igniters are located. 
+	After the circuit design was complete, methods were evaluated for routing wires physically from the PCB to the bottom of the rocket where the rocket engines and igniters are located.
+
+	Initially, microclips like the ones used in the ignition box were considered. They would be connected to be PCB via screw terminals and clip onto the engine igniters at the bottom of the rocket when it is ready to be launched. However, their mass of 20 g would have accounted for close to 5 percent of the rocket mass and was not an ideal solution. An alternative solution was created to have multiple 2-port screw terminals, which only weigh 2 g at the bottom of the rocket wired to the PCB while the igniters can be inserted into these terminals and screwed down as shown in \ref{fig:igniter_wiring}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=10cm]{./images/igniter_wiring.png}
+		\caption{Improved Solution for Igniter Wiring}
+		\label{fig:igniter_wiring}
+	\end{figure}
 
 	\subsection{Maintain BLE communication with the rocket for at least 200 meters}
 
@@ -444,29 +454,41 @@
 	One of the main geometric design constraints for the mechanical design was that the 3D printer only has a print space of 12 x 12 x 12 cm which means that the fins can only be 12 cm long and wide maximum. Another design constraint was that the body tube should have just enough space for 4 engines in order to have the capability for multi-stage launches (ignite another set of engines after the first set during the initial launch has burnt out). With these two constraints in mind, the geometric definitions were built up from there and adjusted in simulation over several iterations to have a stability margin between the recommended 1 to 1.5 calibers and an apogee of above 150 meters.
 
 	\subsection{Communicate real-time altitude data to the smartphone}
-		Altitude data telemetry can be enabled by having an altimeter onboard the PCB that communicates with the BLE chip which in turn communicated with the smartphone on the ground. The selected altimeter was the MPL3115A2 from Freescale since it was currently being used for another project in the group so the necessary firmware drivers were already developed and the altimeter has already been proven to work well.
+		Altitude data telemetry can be enabled by having an altimeter onboard the PCB that communicates with the BLE chip which in turn communicated with the smartphone on the ground. The selected altimeter was the MPL3115A2 from Freescale since it was currently being used for another project in the group so the necessary firmware drivers were already developed and the altimeter has already been proven to work well. The altimeter would communicate with the BLE chip via the Two Wire Interface (TWI) and with altitude data samples every 150 ms.
 
-	\subsection{Rocket can deploy a parachute to be recovered and reused multiple times}
+	\subsection{Rocket can electronically deploy a parachute to be recovered and reused multiple times}
 
+	The parachute ejection mechanism is perhaps the most important component to design in the entire rocket, since it allows the rocket to be retrieved and reused. Due to the fact that the inside of the rocket contains a PCB with some wirings that can be damaged, it would not be ideal to use the ejection charge from motor engines to blow open the nose cose and release a parachute like traditional non-electronic rockets. Thus D9-P motors were used because the ``Plugged" designation means that there is no ejection charge in the engines. Ultimately, the whole point of having a BLE-enabled rocket is so that its operations can be electronically controlled.
 
+	Before the mechanism can be designed, a proper parachute must be chosen for the weight of the rocket. Since the mass of rocket without the parachute and associated components was already 290 g, a parachute with a 70 cm diameter, 18 g weight, and 300-400 g of recommended payload weight was chosen from Klima (product no. 8592). This would ensure that the rocket can return to ground at a safe impact velocity ( 4 m/s according to simulation ).
 
-\section{Graphics}
+	Though many ideas were conceptualized about how to electronically eject a 18 g mass out of a high flying plastic tube, from electromagnetic projectile ejection (read: railgun) to pure mechanical rotation of permanent magnetics to repel the parachute out of the tube, most of the ideas did not make it to protyotype stage because they were either too electrically complex or mechanically unreliable. The idea that was prototyped and eventually worked well was a simple servo motor actuated hatch that opened radially outward from the rocket body as shown in Figure \ref{fig:open_hatch} and \ref{fig:closed_hatch}. The parachute is rolled and folded into the space in the hatch and will tumble out when the hatch swings open.
 
-	Here's a stock image of a computer. It comes with a CC0 license, enabling
-	free distribution for commercial and personal use. It's a JPEG.
-
-	% The figure environment allows for the insertion of a figure into a LaTeX
-	% document. By creating this environment, the figure will be automatically be added
-	% to the list of figures. For more information on inserting figures, refer to the link
-	% under Figures in README.md.
-	\begin{figure}[!ht]
-		\centering
-		\label{fig:stock_computer}
-		\includegraphics[width=5cm]{./images/stock-image.jpg}
-		\caption{A stock computer, I just wanted a picture here}
+	\begin{figure}[!tbp]
+	\centering
+	\subfloat[Hatch Open.]{\includegraphics[width=5cm]{./images/open_hatch.png}\label{fig:open_hatch}}
+	\hfill
+	\subfloat[Hatch Closed.]{\includegraphics[width=5cm]{./images/closed_hatch.png}\label{fig:closed_hatch}}
+	\caption{Parachute Hatch 3D Model.}
 	\end{figure}
 
-\section{Conclusions}
+	\section{Test Flight}
+
+	After 3D printing the mechanical structures and fabricating the PCB and populating it, the rocket was assembled and ready to be launched. Figure \ref{fig:3d_model} and Figure \ref{fig:rocket} shows the modeled and assembled rocket.
+
+	\begin{figure}[!tbp]
+	\centering
+	\subfloat[3D Model.]{\includegraphics[width=6cm]{./images/3d_model.png}\label{fig:3d_model}}
+	\hfill
+	\subfloat[Assembled Rocket.]{\includegraphics[width=4cm]{./images/rocket.jpg}\label{fig:rocket}}
+	\caption{Parachute Hatch 3D Model.}
+	\end{figure}
+
+	
+
+
+
+	\section{Conclusion}
 
 	% The \gls{title} command allows the LaTeX document to keep track of where words
 	% in the glossary are used. For more information on the glossary and acronyms,
@@ -475,8 +497,7 @@
 
 \section{Recommendations}
 
-	Use more \LaTeX. Also, use more \gls{Unix}. Also, citations like
-    	\cite{k_townsend_ble} will lead to a better quality of work.
+
 
 \end{body}
 
@@ -494,48 +515,28 @@
 % The appendix environment creates an appendix that will be properly added to
 % table of contents. All figures and tables will be properly formatted to include the
 % appendix letter.
-\begin{appendix}{Here's An Appendix}
-
-	\lipsum[1-2]
-
-\end{appendix}
-
-\begin{appendix}{Here's Another Appendix}
-
-	\lipsum[1-2]
-
-\end{appendix}
-
-\begin{appendix}{A Figure in An Appendix}
-
-	\lipsum[1-2]
-
-	% This figure shows proper appendix formatting.
-	\begin{figure}[!ht]
-		\centering
-		\includegraphics[width=5cm]{./images/stock-image.jpg}
-		\caption{It's back!}
-	\end{figure}
-
-	\begin{figure}[!ht]
-		\centering
-		\includegraphics[width=5cm]{./images/stock-image.jpg}
-		\caption{Testing Number}
-	\end{figure}
-
-\end{appendix}
 
 \begin{appendix}{A Table in An Appendix}
 
         \lipsum[1-2]
 
 	% This table shows proper appendix formatting.
-        \begin{table}
+    \begin{table}
 		\centering
 
 		\begin{tabular}{|c|c|} \hline
 			\textbf{Abbreviation} & \textbf{Definition} \\ \hline
 			BLE & Bluetooth Low Energy \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
+			SoC & System on Chip \\ \hline
 			SoC & System on Chip \\ \hline
 		\end{tabular}
 
